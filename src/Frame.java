@@ -8,6 +8,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class Frame extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Panel panel = new Panel();
 
 	public Frame() {

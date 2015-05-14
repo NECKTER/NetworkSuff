@@ -9,9 +9,14 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 public class Panel extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Timer gameTimer;
 	private ClipPlayer sound = new ClipPlayer();
-	private SpriteSheet sheet = new SpriteSheet();
+
+//	private SpriteSheet sheet = new SpriteSheet();
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
