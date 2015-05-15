@@ -12,17 +12,18 @@ public class Frame extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Panel panel = new Panel();
+	Panel panel;
 
 	public Frame() {
-		super("Name");
-		this.setVisible(true);
+		super("OUTLAW");
 		setLayout(new BorderLayout());
 		createMenus();
 		setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new Panel();
 		this.add(panel);
 		pack();
+		this.setVisible(true);
 	}
 
 	private void createMenus() {

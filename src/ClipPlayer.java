@@ -63,7 +63,7 @@ public class ClipPlayer {
 	
 	public void play(String command) {
 		Clip c = clipMap.get(command);
-		//System.out.println("Trying to play "+c);
+		System.out.println("Trying to play "+c);
 		
 		// not sure if any of this was necessary.  I was troubleshooting to find out 
 	   // why the Clips wouldn't play a second time.  Resetting the frame position worked.
