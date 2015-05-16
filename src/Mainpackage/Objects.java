@@ -11,7 +11,7 @@ public class Objects {
 	private Rectangle myrect;
 	private int x, y, h, w;
 	private Image img;
-	private Image img2;
+	private Image img2 = null;
 	private boolean canAnimate = false;
 	private int animation = 0;
 	private boolean changeImg = true;
@@ -43,9 +43,9 @@ public class Objects {
 		for (int i = 0; i < test.getHeight(); i++) {
 			for (int j = 0; j < test.getWidth() / 2; j++) {
 				int temp = test.getRGB(j, i);
-				int temp2 = test.getRGB(test.getWidth() - j-1, i);
+				int temp2 = test.getRGB(test.getWidth() - j - 1, i);
 				test.setRGB(j, i, temp2);
-				test.setRGB(test.getWidth()-1 - j, i, temp);
+				test.setRGB(test.getWidth() - 1 - j, i, temp);
 			}
 		}
 		img = (Image) test;
@@ -95,6 +95,19 @@ public class Objects {
 		}
 	}
 
+	public void draw(Graphics g, Color c, Boolean b) {
+		// TODO Auto-generated method stub
+		this.changeImg = b;
+		g.setColor(c);
+		BufferedImage img = (BufferedImage) getImage();
+		for (int i = 0; i < img.getHeight(); i++) {
+			for (int j = 0; j < img.getWidth(); j++) {
+				if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 4)) g.drawLine(x + j, y + i, x + j, y + i);
+			}
+		}
+		this.changeImg = true;
+	}
+
 	public void drawShoot(Graphics g, Color c) {
 		// TODO Auto-generated method stub
 		if (shoot != null) {
@@ -103,7 +116,7 @@ public class Objects {
 			BufferedImage img = (BufferedImage) shoot;
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 2)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
 				}
 			}
 		}
@@ -116,7 +129,7 @@ public class Objects {
 			BufferedImage img = (BufferedImage) shootUp;
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 2)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
 				}
 			}
 		}
@@ -129,7 +142,7 @@ public class Objects {
 			BufferedImage img = (BufferedImage) shootDown;
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 2)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
 				}
 			}
 		}
@@ -145,17 +158,19 @@ public class Objects {
 
 	private Image getImage() {
 		// TODO Auto-generated method stub
-		if (canAnimate) {
-			if (animation == 0) {
-				if (changeImg) {
-					animation++;
+		if (img2 != null) {
+			if (canAnimate) {
+				if (animation == 0) {
+					if (changeImg) {
+						animation++;
+					}
+					return img;
 				}
-				return img;
+				if (changeImg) {
+					animation--;
+				}
+				return img2;
 			}
-			if (changeImg) {
-				animation--;
-			}
-			return img2;
 		}
 		return img;
 	}
