@@ -21,6 +21,7 @@ public class Panel extends JPanel implements ActionListener {
 	private SpriteSheet sheet = new SpriteSheet();
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
+	private Objects Player = new Objects(200, 300, 100, 100, sheet.getPlayer());
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -142,7 +143,7 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				Player.flipAll();
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -169,8 +170,10 @@ public class Panel extends JPanel implements ActionListener {
 		//paint what is to be seen then the game has not yet started or has ended
 		if (!gameTimer.isRunning()) {
 			g.drawString("OUTLAW", 800, 450);
+			g.drawImage(sheet.getMain(), 0, 0, null);
 			return;
 		}
+		Player.draw(g,Color.green);
 		//paint game stuff
 
 	}
