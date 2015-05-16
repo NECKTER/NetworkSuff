@@ -168,6 +168,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1CanMove = true;
+				sound.play("shoot");
 			}
 		});
 	}
@@ -219,10 +220,10 @@ public class Panel extends JPanel implements ActionListener {
 	private void playerAnimate(Graphics g) {
 		boolean moving = p1Up || p1Down || p1Left || p1Right;
 		if (p1CanMove) {
-			if(p1moves %40!=0&&moving)moving = false;
-			if (p1moves==81)p1moves =1;
+			if (p1moves % 40 != 0 && moving) moving = false;
+			if (p1moves == 81) p1moves = 1;
 			player.draw(g, p1col, moving);
-			if(moving&&p1moves%80==0)sound.play("break");
+			if (moving && p1moves % 80 == 0) sound.play("break");
 			p1moves++;
 		} else {
 			if (p1Up && !p1Down) player.drawShootUp(g, p1col);
