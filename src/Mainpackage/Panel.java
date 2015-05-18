@@ -22,6 +22,7 @@ public class Panel extends JPanel implements ActionListener {
 	private SpriteSheet sheet = new SpriteSheet();
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
+	private ArrayList<Objects> garbage = new ArrayList<Objects>();
 	private Objects player = new Objects(200, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
 	private boolean p1CanMove = true;
 	private boolean p1Up = false;
@@ -30,6 +31,16 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p1Down = false;
 	private Color p1col = Color.green;
 	private int p1moves = 0;
+	private int p1Bullet = 0;
+	private Objects player2 = new Objects(1400, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private boolean p2CanMove = true;
+	private boolean p2Up = false;
+	private boolean p2Right = false;
+	private boolean p2Left = false;
+	private boolean p2Down = false;
+	private Color p2col = Color.red;
+	private int p2moves = 0;
+	private int p2Bullet = 0;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -45,6 +56,10 @@ public class Panel extends JPanel implements ActionListener {
 		player.addShoot(sheet.getPlayerShoot());
 		player.addShootUp(sheet.getPlayerShootUp());
 		player.addShootDonw(sheet.getPlayerShootDown());
+		player2.addImage(sheet.getPlayerStep());
+		player2.addShoot(sheet.getPlayerShoot());
+		player2.addShootUp(sheet.getPlayerShootUp());
+		player2.addShootDonw(sheet.getPlayerShootDown());
 	}
 
 	private void setUpBindings() {
@@ -69,6 +84,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Up = true;
+				p2Up = true;
 			}
 		});
 		this.getActionMap().put("up off", new AbstractAction() {
@@ -80,6 +96,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Up = false;
+				p2Up = false;
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -91,6 +108,8 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Down = true;
+				p2Down = true;
+
 			}
 		});
 		this.getActionMap().put("down off", new AbstractAction() {
@@ -102,6 +121,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Down = false;
+				p2Down = false;
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -113,6 +133,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Right = true;
+				p2Right = true;
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -124,6 +145,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Right = false;
+				p2Right = false;
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -135,6 +157,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Left = true;
+				p2Left = true;
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -146,6 +169,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1Left = false;
+				p2Left = false;
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -157,6 +181,7 @@ public class Panel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1CanMove = false;
+				p2CanMove = false;
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -167,8 +192,46 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				p2CanMove = true;
+
+				if (enemybullets.isEmpty()) {
+					switch (p2Bullet) {
+					case 1:
+						enemybullets.add(new Objects(player2.getX() - 5, player2.getY() + 10, 5, 5, sheet.getBullet(), p2Bullet, -1));
+						break;
+					case 0:
+						enemybullets.add(new Objects(player2.getX(), player2.getY() + 27, 5, 5, sheet.getBullet(), p2Bullet, -1));
+						break;
+					case -1:
+						enemybullets.add(new Objects(player2.getX(), player2.getY() + 55, 5, 5, sheet.getBullet(), p2Bullet, -1));
+						break;
+
+					default:
+						break;
+					}
+
+					sound.play("shoot");
+				}
 				p1CanMove = true;
-				sound.play("shoot");
+
+				if (bullets.isEmpty()) {
+					switch (p1Bullet) {
+					case 1:
+						bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));
+						break;
+					case 0:
+						bullets.add(new Objects(player.getX() + 55, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
+						break;
+					case -1:
+						bullets.add(new Objects(player.getX() + 55, player.getY() + 55, 5, 5, sheet.getBullet(), p1Bullet, 1));
+						break;
+
+					default:
+						break;
+					}
+
+					sound.play("shoot");
+				}
 			}
 		});
 	}
@@ -187,6 +250,9 @@ public class Panel extends JPanel implements ActionListener {
 			g.drawImage(sheet.getMain(), 0, 0, null);
 			return;
 		}
+		drawBullets(g);
+//		p1col = colorize();
+//		p2col = colorize();
 		playerAnimate(g);
 		//paint game stuff
 
@@ -201,37 +267,138 @@ public class Panel extends JPanel implements ActionListener {
 
 	private void movestuff() {
 		// TODO Auto-generated method stub
-		if (p1CanMove) {
-			if (p1Down) {
-				player.move(player.getX(), player.getY() + 1);
+		for (Objects objects : bullets) {
+			objects.move();
+			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
+				garbage.add(objects);
 			}
-			if (p1Up) {
-				player.move(player.getX(), player.getY() - 1);
+		}
+		bullets.removeAll(garbage);
+		garbage.clear();
+		for (Objects objects : enemybullets) {
+			objects.move();
+			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
+				garbage.add(objects);
 			}
-			if (p1Left) {
-				player.move(player.getX() - 1, player.getY());
+		}
+		enemybullets.removeAll(garbage);
+		garbage.clear();
+		if (bullets.isEmpty()) {
+			if (p1CanMove) {
+				if (p1Down) {
+					player.move(player.getX(), player.getY() + 1);
+				}
+				if (p1Up) {
+					player.move(player.getX(), player.getY() - 1);
+				}
+				if (p1Left) {
+					player.move(player.getX() - 1, player.getY());
+				}
+				if (p1Right) {
+					player.move(player.getX() + 1, player.getY());
+				}
 			}
-			if (p1Right) {
-				player.move(player.getX() + 1, player.getY());
+		}
+		if (enemybullets.isEmpty()) {
+			if (p2CanMove) {
+				if (p2Down) {
+					player2.move(player2.getX(), player2.getY() + 1);
+				}
+				if (p2Up) {
+					player2.move(player2.getX(), player2.getY() - 1);
+				}
+				if (p2Left) {
+					player2.move(player2.getX() - 1, player2.getY());
+				}
+				if (p2Right) {
+					player2.move(player2.getX() + 1, player2.getY());
+				}
 			}
 		}
 	}
 
 	private void playerAnimate(Graphics g) {
 		boolean moving = p1Up || p1Down || p1Left || p1Right;
-		if (p1CanMove) {
+		if (p1CanMove && bullets.isEmpty()) {
 			if (p1moves % 40 != 0 && moving) moving = false;
 			if (p1moves == 81) p1moves = 1;
 			player.draw(g, p1col, moving);
 			if (moving && p1moves % 80 == 0) sound.play("break");
 			p1moves++;
 		} else {
-			if (p1Up && !p1Down) player.drawShootUp(g, p1col);
-			else
-				if (p1Down && !p1Up) player.drawShootDown(g, p1col);
-				else
+			if (p1Up && !p1Down) {
+				player.drawShootUp(g, p1col);
+				p1Bullet = 1;
+			} else {
+				if (p1Down && !p1Up) {
+					player.drawShootDown(g, p1col);
+					p1Bullet = -1;
+				} else {
 					player.drawShoot(g, p1col);
-		}
+					p1Bullet = 0;
+				}
+			}
 
+		}
+		player2.flipAll();
+		boolean moving2 = p2Up || p2Down || p2Left || p2Right;
+		if (p2CanMove && enemybullets.isEmpty()) {
+			if (p2moves % 40 != 0 && moving2) moving2 = false;
+			if (p2moves == 81) p2moves = 1;
+			player2.draw(g, p2col, moving2);
+			if (moving2 && p2moves % 80 == 0) sound.play("break");
+			p2moves++;
+		} else {
+			if (p2Up && !p2Down) {
+				player2.drawShootUp(g, p2col);
+				p2Bullet = 1;
+			} else {
+				if (p2Down && !p2Up) {
+					player2.drawShootDown(g, p2col);
+					p2Bullet = -1;
+				} else {
+					player2.drawShoot(g, p2col);
+					p2Bullet = 0;
+				}
+			}
+
+		}
+		player2.flipAll();
+
+	}
+
+	private void drawBullets(Graphics g) {
+		for (Objects objects : bullets) {
+			objects.draw(g);
+		}
+		for (Objects objects : enemybullets) {
+			objects.draw(g);
+		}
+	}
+
+	private Color colorize() {
+		int num = (int) Math.round((Math.random() * 9));
+		switch (num) {
+		case 0:
+			return Color.blue;
+		case 1:
+			return Color.cyan;
+		case 2:
+			return Color.green;
+		case 3:
+			return Color.magenta;
+		case 4:
+			return Color.orange;
+		case 5:
+			return Color.pink;
+		case 6:
+			return Color.red;
+		case 7:
+			return Color.yellow;
+		case 8:
+			return Color.black;
+		default:
+			return Color.gray;
+		}
 	}
 }

@@ -19,6 +19,8 @@ public class Objects {
 	private Image shootUp = null;
 	private Image shoot = null;
 	private Image shootDown = null;
+	private int direction = 0;
+	private int forwardOrBack = 1;
 
 	public Objects(int x, int y, int h, int w, Image img) {
 		this.h = h;
@@ -27,6 +29,17 @@ public class Objects {
 		this.x = x;
 		this.y = y;
 		this.myrect = new Rectangle(x - w / 3, y, w * 2, h);
+	}
+
+	public Objects(int x, int y, int h, int w, Image img, int dir, int fob) {
+		this.h = h;
+		this.img = img;
+		this.w = w;
+		this.x = x;
+		this.y = y;
+		this.myrect = new Rectangle(x - w / 3, y, w * 2, h);
+		direction = dir;
+		forwardOrBack = fob;
 	}
 
 	public void flipAll() {
@@ -153,6 +166,13 @@ public class Objects {
 		// TODO Auto-generated method stub
 		this.x = (int) x;
 		this.y = (int) y;
+		myrect.move((int) x - w / 3, (int) y);
+	}
+
+	public void move() {
+		// TODO Auto-generated method stub
+		this.x = x + (1 * forwardOrBack);
+		this.y = y + (direction * -1);
 		myrect.move((int) x - w / 3, (int) y);
 	}
 
