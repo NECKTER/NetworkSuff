@@ -3,12 +3,15 @@ package Mainpackage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Objects {
 	public static Panel panel;
 	private Rectangle myrect;
+	private ArrayList<Point> pixels = new ArrayList<>();
 	private int x, y, h, w;
 	private Image img;
 	private Image img2 = null;
@@ -19,6 +22,7 @@ public class Objects {
 	private Image shootUp = null;
 	private Image shoot = null;
 	private Image shootDown = null;
+	private Image death = null;
 	private int direction = 0;
 	private int forwardOrBack = 1;
 
@@ -48,6 +52,7 @@ public class Objects {
 		flipImg(shoot);
 		flipImg(shootUp);
 		flipImg(shootDown);
+		flipImg(death);
 	}
 
 	private void flipImg(Image img) {
@@ -74,6 +79,10 @@ public class Objects {
 
 	public void addShootDonw(Image img) {
 		shootDown = img;
+	}
+
+	public void addDeath(Image img) {
+		death = img;
 	}
 
 	public void addImage(Image img) {
@@ -113,9 +122,13 @@ public class Objects {
 		this.changeImg = b;
 		g.setColor(c);
 		BufferedImage img = (BufferedImage) getImage();
+		pixels.clear();
 		for (int i = 0; i < img.getHeight(); i++) {
 			for (int j = 0; j < img.getWidth(); j++) {
-				if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 4)) g.drawLine(x + j, y + i, x + j, y + i);
+				if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 4)) {
+					g.drawLine(x + j, y + i, x + j, y + i);
+					pixels.add(new Point(x + j, y + i));
+				}
 			}
 		}
 		this.changeImg = true;
@@ -127,9 +140,13 @@ public class Objects {
 
 			g.setColor(c);
 			BufferedImage img = (BufferedImage) shoot;
+			pixels.clear();
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) {
+						g.drawLine(x + j, y + i, x + j, y + i);
+						pixels.add(new Point(x + j, y + i));
+					}
 				}
 			}
 		}
@@ -140,9 +157,13 @@ public class Objects {
 		if (shootUp != null) {
 			g.setColor(c);
 			BufferedImage img = (BufferedImage) shootUp;
+			pixels.clear();
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) {
+						g.drawLine(x + j, y + i, x + j, y + i);
+						pixels.add(new Point(x + j, y + i));
+					}
 				}
 			}
 		}
@@ -153,9 +174,30 @@ public class Objects {
 		if (shootDown != null) {
 			g.setColor(c);
 			BufferedImage img = (BufferedImage) shootDown;
+			pixels.clear();
 			for (int i = 0; i < img.getHeight(); i++) {
 				for (int j = 0; j < img.getWidth(); j++) {
-					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) g.drawLine(x + j, y + i, x + j, y + i);
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) {
+						g.drawLine(x + j, y + i, x + j, y + i);
+						pixels.add(new Point(x + j, y + i));
+					}
+				}
+			}
+		}
+	}
+
+	public void drawDeath(Graphics g, Color c) {
+		// TODO Auto-generated method stub
+		if (death != null) {
+			g.setColor(c);
+			BufferedImage img = (BufferedImage) death;
+			pixels.clear();
+			for (int i = 0; i < img.getHeight(); i++) {
+				for (int j = 0; j < img.getWidth(); j++) {
+					if (img.getRGB(j, i) == img.getRGB(img.getWidth() / 2, img.getHeight() / 6)) {
+						g.drawLine(x + j, y + i, x + j, y + i);
+						pixels.add(new Point(x + j, y + i));
+					}
 				}
 			}
 		}
@@ -171,7 +213,7 @@ public class Objects {
 
 	public void move() {
 		// TODO Auto-generated method stub
-		this.x = x + (1 * forwardOrBack);
+		this.x = x + (2 * forwardOrBack);
 		this.y = y + (direction * -1);
 		myrect.move((int) x - w / 3, (int) y);
 	}
@@ -217,5 +259,9 @@ public class Objects {
 
 	public Rectangle getRect() {
 		return myrect;
+	}
+
+	public ArrayList<Point> getPixels() {
+		return pixels;
 	}
 }
