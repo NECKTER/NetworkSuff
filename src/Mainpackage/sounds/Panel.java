@@ -34,7 +34,8 @@ public class Panel extends JPanel implements ActionListener {
 	private Color p1col = Color.green;
 	private int p1moves = 0;
 	private int p1Bullet = 0;
-	private Objects player2 = new Objects(1400, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private boolean p1WasHit = false;
+	private Objects player2 = new Objects(1300, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
 	private boolean p2CanMove = true;
 	private boolean p2Up = false;
 	private boolean p2Right = false;
@@ -44,9 +45,7 @@ public class Panel extends JPanel implements ActionListener {
 	private Color p2col = Color.red;
 	private int p2moves = 0;
 	private int p2Bullet = 0;
-	private int whichplayer = 1;
-	private boolean p2WasHit;
-	private boolean p1WasHit;
+	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
 
@@ -119,6 +118,7 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				setP1Down(true);
 //				setP2Down(true);
+
 			}
 		});
 		this.getActionMap().put("down off", new AbstractAction() {
@@ -207,13 +207,9 @@ public class Panel extends JPanel implements ActionListener {
 		});
 	}
 
-	public void startGame(int i) {
+	public void startGame() {
 		// setup game then start timer
-		whichplayer = i;
 		gameTimer.start();
-
-		//makes the game client
-
 	}
 
 	@Override
@@ -223,6 +219,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (!gameTimer.isRunning()) {
 			g.drawString("OUTLAW", 800, 450);
 			g.drawImage(sheet.getMain(), 0, 0, null);
+			player.drawDeath(g, p1col);
 			return;
 		}
 		drawBullets(g);
@@ -235,18 +232,9 @@ public class Panel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
 		// do stuff and then repaint
-
-		updateservervalues();
 		movestuff();
 		repaint();
-	}
-
-	private void updateservervalues() {
-		// TODO Auto-generated method stub
-		int i = 0;
-
 	}
 
 	private void movestuff() {
@@ -307,27 +295,19 @@ public class Panel extends JPanel implements ActionListener {
 				if (moving && p1moves % 80 == 0) sound.play("break");
 				p1moves++;
 			} else {
-				if (p1CanMove && bullets.isEmpty()) {
-					if (p1moves % 40 != 0 && moving) moving = false;
-					if (p1moves == 81) p1moves = 1;
-					player.draw(g, p1col, moving);
-					if (moving && p1moves % 80 == 0) sound.play("break");
-					p1moves++;
+				if (p1Up && !p1Down) {
+					player.drawShootUp(g, p1col);
+					p1Bullet = 1;
 				} else {
-					if (p1Up && !p1Down) {
-						player.drawShootUp(g, p1col);
-						p1Bullet = 1;
+					if (p1Down && !p1Up) {
+						player.drawShootDown(g, p1col);
+						p1Bullet = -1;
 					} else {
-						if (p1Down && !p1Up) {
-							player.drawShootDown(g, p1col);
-							p1Bullet = -1;
-						} else {
-							player.drawShoot(g, p1col);
-							p1Bullet = 0;
-						}
+						player.drawShoot(g, p1col);
+						p1Bullet = 0;
 					}
-
 				}
+
 			}
 		boolean moving2 = p2Up || p2Down || p2Left || p2Right;
 		player2.flipAll();

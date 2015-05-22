@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Objects {
 	public static Panel panel;
 	private Rectangle myrect;
+	private ArrayList<Point> pixels = new ArrayList<>();
 	private int x, y, h, w;
 	private Image img;
 	private Image img2 = null;
@@ -25,7 +26,6 @@ public class Objects {
 	private int direction = 0;
 	private int forwardOrBack = 1;
 	private boolean hasbounced = false;
-	private ArrayList<Point> pixels = new ArrayList<>();
 
 	public Objects(int x, int y, int h, int w, Image img) {
 		this.h = h;
@@ -70,10 +70,6 @@ public class Objects {
 		img = (Image) test;
 	}
 
-	public void addDeath(Image img) {
-		death = img;
-	}
-
 	public void addShootUp(Image img) {
 		shootUp = img;
 	}
@@ -84,6 +80,10 @@ public class Objects {
 
 	public void addShootDonw(Image img) {
 		shootDown = img;
+	}
+
+	public void addDeath(Image img) {
+		death = img;
 	}
 
 	public void addImage(Image img) {
