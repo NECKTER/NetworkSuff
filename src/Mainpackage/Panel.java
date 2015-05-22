@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import Networkstuuff.GameClient;
+import Networkstuuff.GameServer;
+
 public class Panel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -48,6 +51,9 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
+	private int whichplayer=1;
+	private GameClient socketClient;
+	private GameServer socketServer;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -207,9 +213,16 @@ public class Panel extends JPanel implements ActionListener {
 		});
 	}
 
-	public void startGame() {
+	public void startGame(int i) {
 		// setup game then start timer
+		whichplayer=i;
+		socketClient=new GameClient();
 		gameTimer.start();
+		
+		//makes the game client
+		
+	
+	
 	}
 
 	@Override
@@ -233,8 +246,15 @@ public class Panel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// do stuff and then repaint
+		updateservervalues();
 		movestuff();
 		repaint();
+	}
+	private void updateservervalues() {
+		// TODO Auto-generated method stub
+		int i=0;
+		//if(GameClientRe.clientsvalues[i]==0&&
+		
 	}
 
 	private void movestuff() {

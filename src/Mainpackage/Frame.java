@@ -1,4 +1,5 @@
 package Mainpackage;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,17 +34,19 @@ public class Frame extends JFrame implements ActionListener {
 		menuBar.setVisible(true);
 		JMenu fileMenu = new JMenu("Game");
 		JMenuItem newItem = new JMenuItem("Start");
-		newItem.addActionListener(this);// this allows the JMenuItem called newItem to tell the Frame that someone has chosen "new"
+		newItem.addActionListener(this);// this allows the JMenuItem called
+										// newItem to tell the Frame that
+										// someone has chosen "new"
 		fileMenu.add(newItem);
 		menuBar.add(fileMenu);
-		//menuBar.setUI(new BasicMenuBarUI());
+		// menuBar.setUI(new BasicMenuBarUI());
 		setJMenuBar(menuBar);
-		//add(menuBar, BorderLayout.NORTH);
+		// add(menuBar, BorderLayout.NORTH);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		panel.startGame();
+		panel.startGame(1);
 	}
 }
