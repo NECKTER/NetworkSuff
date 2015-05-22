@@ -30,6 +30,7 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p1Right = false;
 	private boolean p1Left = false;
 	private boolean p1Down = false;
+	private int p1Shooting = 0;
 	private Color p1col = Color.green;
 	private int p1moves = 0;
 	private int p1Bullet = 0;
@@ -40,6 +41,7 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2Right = false;
 	private boolean p2Left = false;
 	private boolean p2Down = false;
+	private int p2Shooting = 0;
 	private Color p2col = Color.red;
 	private int p2moves = 0;
 	private int p2Bullet = 0;
@@ -90,8 +92,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Up = true;
-				p2Up = true;
+				setP1Up(true);
+//				setP2Up(true);
 			}
 		});
 		this.getActionMap().put("up off", new AbstractAction() {
@@ -102,8 +104,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Up = false;
-				p2Up = false;
+				setP1Up(false);
+//				setP2Up(false);
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -114,8 +116,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Down = true;
-				p2Down = true;
+				setP1Down(true);
+//				setP2Down(true);
 
 			}
 		});
@@ -127,8 +129,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Down = false;
-				p2Down = false;
+				setP1Down(false);
+//				setP2Down(false);
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -139,8 +141,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Right = true;
-				p2Right = true;
+				setP1Right(true);
+//				setP2Right(true);
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -151,8 +153,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Right = false;
-				p2Right = false;
+				setP1Right(false);
+//				setP2Right(false);
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -163,8 +165,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Left = true;
-				p2Left = true;
+				setP1Left(true);
+//				setP2Left(true);
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -175,8 +177,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1Left = false;
-				p2Left = false;
+				setP1Left(false);
+//				setP2Left(false);
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -187,8 +189,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1CanMove = false;
-				p2CanMove = false;
+				setP1Shooting(1);
+//				setP2Shooting(1);
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -199,46 +201,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p2CanMove = true;
-
-				if (enemybullets.isEmpty() && !p2WasHit) {
-					switch (p2Bullet) {
-					case 1:
-						enemybullets.add(new Objects(player2.getX() - 5, player2.getY() + 10, 5, 5, sheet.getBullet(), p2Bullet, -1));
-						break;
-					case 0:
-						enemybullets.add(new Objects(player2.getX(), player2.getY() + 27, 5, 5, sheet.getBullet(), p2Bullet, -1));
-						break;
-					case -1:
-						enemybullets.add(new Objects(player2.getX(), player2.getY() + 55, 5, 5, sheet.getBullet(), p2Bullet, -1));
-						break;
-
-					default:
-						break;
-					}
-
-					sound.play("shoot");
-				}
-				p1CanMove = true;
-
-				if (bullets.isEmpty() && !p1WasHit) {
-					switch (p1Bullet) {
-					case 1:
-						bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));
-						break;
-					case 0:
-						bullets.add(new Objects(player.getX() + 55, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
-						break;
-					case -1:
-						bullets.add(new Objects(player.getX() + 55, player.getY() + 55, 5, 5, sheet.getBullet(), p1Bullet, 1));
-						break;
-
-					default:
-						break;
-					}
-
-					sound.play("shoot");
-				}
+				setP1Shooting(-1);
+//				setP2Shooting(-1);
 			}
 		});
 	}
@@ -276,6 +240,7 @@ public class Panel extends JPanel implements ActionListener {
 	private void movestuff() {
 		// TODO Auto-generated method stub\
 		checkForColision();
+		checkShooting();
 		if (bullets.isEmpty()) {
 			if (p1CanMove) {
 				if (p1Down) {
@@ -421,7 +386,11 @@ public class Panel extends JPanel implements ActionListener {
 		for (Objects objects : bullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				garbage.add(objects);
+				if (objects.Hasbounced() == false) {
+					objects.bounce();
+				} else {
+					garbage.add(objects);
+				}
 			}
 			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
@@ -434,7 +403,11 @@ public class Panel extends JPanel implements ActionListener {
 		for (Objects objects : enemybullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				garbage.add(objects);
+				if (objects.Hasbounced() == false) {
+					objects.bounce();
+				} else {
+					garbage.add(objects);
+				}
 			}
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
@@ -448,5 +421,95 @@ public class Panel extends JPanel implements ActionListener {
 			enemybullets.remove(0);
 			bullets.remove(0);
 		}
+	}
+
+	private void checkShooting() {
+		if (p1Shooting == 1) p1CanMove = false;
+		if (p2Shooting == 1) p2CanMove = false;
+		if (p2Shooting == -1) {
+			p2CanMove = true;
+			if (enemybullets.isEmpty() && !p2WasHit) {
+				switch (p2Bullet) {
+				case 1:
+					enemybullets.add(new Objects(player2.getX() - 5, player2.getY() + 10, 5, 5, sheet.getBullet(), p2Bullet, -1));
+					break;
+				case 0:
+					enemybullets.add(new Objects(player2.getX(), player2.getY() + 27, 5, 5, sheet.getBullet(), p2Bullet, -1));
+					break;
+				case -1:
+					enemybullets.add(new Objects(player2.getX(), player2.getY() + 55, 5, 5, sheet.getBullet(), p2Bullet, -1));
+					break;
+
+				default:
+					break;
+				}
+
+				sound.play("shoot");
+			}
+			p2Shooting = 0;
+		}
+		if (p1Shooting == -1) {
+			p1CanMove = true;
+
+			if (bullets.isEmpty() && !p1WasHit) {
+				switch (p1Bullet) {
+				case 1:
+					bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));
+					break;
+				case 0:
+					bullets.add(new Objects(player.getX() + 55, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
+					break;
+				case -1:
+					bullets.add(new Objects(player.getX() + 55, player.getY() + 55, 5, 5, sheet.getBullet(), p1Bullet, 1));
+					break;
+
+				default:
+					break;
+				}
+
+				sound.play("shoot");
+			}
+		}
+		p1Shooting = 0;
+	}
+
+	public void setP1Down(boolean p1Down) {
+		this.p1Down = p1Down;
+	}
+
+	public void setP1Left(boolean p1Left) {
+		this.p1Left = p1Left;
+	}
+
+	public void setP1Right(boolean p1Right) {
+		this.p1Right = p1Right;
+	}
+
+	public void setP1Up(boolean p1Up) {
+		this.p1Up = p1Up;
+	}
+
+	public void setP1Shooting(int p1Shooting) {
+		this.p1Shooting = p1Shooting;
+	}
+
+	public void setP2Down(boolean p1Down) {
+		this.p2Down = p1Down;
+	}
+
+	public void setP2Left(boolean p1Left) {
+		this.p2Left = p1Left;
+	}
+
+	public void setP2Right(boolean p1Right) {
+		this.p2Right = p1Right;
+	}
+
+	public void setP2Up(boolean p1Up) {
+		this.p2Up = p1Up;
+	}
+
+	public void setP2Shooting(int p1Shooting) {
+		this.p2Shooting = p1Shooting;
 	}
 }

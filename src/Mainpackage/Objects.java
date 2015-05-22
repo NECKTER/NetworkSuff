@@ -25,6 +25,7 @@ public class Objects {
 	private Image death = null;
 	private int direction = 0;
 	private int forwardOrBack = 1;
+	private boolean hasbounced = false;
 
 	public Objects(int x, int y, int h, int w, Image img) {
 		this.h = h;
@@ -213,8 +214,8 @@ public class Objects {
 
 	public void move() {
 		// TODO Auto-generated method stub
-		this.x = x + (2 * forwardOrBack);
-		this.y = y + (direction * -1);
+		this.x = x + (5 * forwardOrBack);
+		this.y = y + (direction * -5);
 		myrect.move((int) x - w / 3, (int) y);
 	}
 
@@ -263,5 +264,14 @@ public class Objects {
 
 	public ArrayList<Point> getPixels() {
 		return pixels;
+	}
+
+	public void bounce() {
+		direction *= -1;
+		hasbounced = true;
+	}
+
+	public boolean Hasbounced() {
+		return hasbounced;
 	}
 }
