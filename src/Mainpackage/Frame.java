@@ -8,15 +8,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import Networkstuuff.GameClientRe;
-
 public class Frame extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	Panel panel;
-	private int server;
 
 	public Frame() {
 		super("OUTLAW");
@@ -35,12 +32,9 @@ public class Frame extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setVisible(true);
 		JMenu fileMenu = new JMenu("Game");
-		JMenuItem newItem = new JMenuItem("Start with server");
-		//JMenuItem otherItem = new JMenuItem("Start without server");
+		JMenuItem newItem = new JMenuItem("Start");
 		newItem.addActionListener(this);// this allows the JMenuItem called newItem to tell the Frame that someone has chosen "new"
-		//otherItem.addActionListener(this);
 		fileMenu.add(newItem);
-		//fileMenu.add(otherItem);
 		menuBar.add(fileMenu);
 		//menuBar.setUI(new BasicMenuBarUI());
 		setJMenuBar(menuBar);
@@ -50,8 +44,6 @@ public class Frame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
-		panel.startGame(1);
-		
+		panel.startGame();
 	}
 }

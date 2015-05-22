@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 public class SpriteSheet {
 	private BufferedImage main;
 	private Image player;//138 125 201 224
-	private Image playerDeath;//1 177 65 241
 	private Image bullet;//0 494 7 501
 	private Image block;//136 352 151 367
 	private Image playerShoot;//227 17 291 99
@@ -25,7 +24,6 @@ public class SpriteSheet {
 		}
 		try {
 			player = main.getSubimage(138, 125, 201 - 138, 224 - 125);
-			playerDeath = main.getSubimage(1, 177, 65 - 1, 241 - 177);
 			bullet = main.getSubimage(0, 494, 7, 501 - 494);
 			block = main.getSubimage(136, 352, 151 - 136, 367 - 352);
 			playerShoot = main.getSubimage(227, 17, 291 - 227, 99 - 17);
@@ -41,10 +39,6 @@ public class SpriteSheet {
 
 	public BufferedImage getMain() {
 		return main;
-	}
-
-	public Image getPlayerDeath() {
-		return playerDeath;
 	}
 
 	public Image getBlock() {

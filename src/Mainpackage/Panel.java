@@ -12,9 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
-import Networkstuuff.GameClientRe;
-import Networkstuuff.GameServerRe;
-
 public class Panel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -44,10 +41,6 @@ public class Panel extends JPanel implements ActionListener {
 	private Color p2col = Color.red;
 	private int p2moves = 0;
 	private int p2Bullet = 0;
-	private int whichplayer=1;
-	private GameClientRe socketClient;
-	private GameServerRe socketServer;
-	
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -90,12 +83,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Up = true;
-				}
-				else{
 				p2Up = true;
-				}
 			}
 		});
 		this.getActionMap().put("up off", new AbstractAction() {
@@ -106,12 +95,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Up = false;
-				}
-				else{
 				p2Up = false;
-				}
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -122,12 +107,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Down = true;
-				}
-				else{
 				p2Down = true;
-				}
+
 			}
 		});
 		this.getActionMap().put("down off", new AbstractAction() {
@@ -138,12 +120,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Down = false;
-				}
-				else{
 				p2Down = false;
-				}
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -154,12 +132,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Right = true;
-				}
-				else{
 				p2Right = true;
-				}
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -170,12 +144,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Right = false;
-				}
-				else{
 				p2Right = false;
-				}
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -186,12 +156,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Left = true;
-				}
-				else{
 				p2Left = true;
-				}
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -202,12 +168,8 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1Left = false;
-				}
-				else{
 				p2Left = false;
-				}
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -218,9 +180,7 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(whichplayer==1){
 				p1CanMove = false;
-				}
 				p2CanMove = false;
 			}
 		});
@@ -276,16 +236,9 @@ public class Panel extends JPanel implements ActionListener {
 		});
 	}
 
-	public void startGame(int i) {
+	public void startGame() {
 		// setup game then start timer
-		whichplayer=i;
-		socketClient=new GameClientRe();
 		gameTimer.start();
-		
-		//makes the game client
-		
-	
-	
 	}
 
 	@Override
@@ -307,19 +260,9 @@ public class Panel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		// do stuff and then repaint
-		
-		updateservervalues();
 		movestuff();
 		repaint();
-	}
-
-	private void updateservervalues() {
-		// TODO Auto-generated method stub
-		int i=0;
-		if(GameClientRe.clientsvalues[i]==0&&
-		
 	}
 
 	private void movestuff() {
