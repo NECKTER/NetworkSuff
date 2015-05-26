@@ -24,6 +24,7 @@ public class Panel extends JPanel implements ActionListener {
 	private Timer gameTimer;
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
+	private final int pnum;
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
 	private ArrayList<Objects> garbage = new ArrayList<Objects>();
@@ -51,7 +52,7 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
-	private int whichplayer=1;
+	private int whichplayer = 1;
 	private GameClient socketClient;
 	private GameServer socketServer;
 
@@ -64,6 +65,7 @@ public class Panel extends JPanel implements ActionListener {
 		//block break and step sound
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
+		pnum = 1;
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
@@ -98,8 +100,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Up(true);
-//				setP2Up(true);
+				if (pnum == 1) setP1Up(true);
+				else
+					setP2Up(true);
 			}
 		});
 		this.getActionMap().put("up off", new AbstractAction() {
@@ -110,8 +113,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Up(false);
-//				setP2Up(false);
+				if (pnum == 1) setP1Up(false);
+				else
+					setP2Up(false);
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -122,8 +126,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Down(true);
-//				setP2Down(true);
+				if (pnum == 1) setP1Down(true);
+				else
+					setP2Down(true);
 
 			}
 		});
@@ -135,8 +140,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Down(false);
-//				setP2Down(false);
+				if (pnum == 1) setP1Down(false);
+				else
+					setP2Down(false);
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -147,8 +153,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Right(true);
-//				setP2Right(true);
+				if (pnum == 1) setP1Right(true);
+				else
+					setP2Right(true);
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -159,8 +166,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Right(false);
-//				setP2Right(false);
+				if (pnum == 1) setP1Right(false);
+				else
+					setP2Right(false);
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -171,8 +179,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Left(true);
-//				setP2Left(true);
+				if (pnum == 1) setP1Left(true);
+				else
+					setP2Left(true);
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -183,8 +192,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Left(false);
-//				setP2Left(false);
+				if (pnum == 1) setP1Left(false);
+				else
+					setP2Left(false);
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -195,8 +205,9 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Shooting(1);
-//				setP2Shooting(1);
+				if (pnum == 1) setP1Shooting(1);
+				else
+					setP2Shooting(1);
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -207,22 +218,21 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setP1Shooting(-1);
-//				setP2Shooting(-1);
+				if (pnum == 1) setP1Shooting(-1);
+				else
+					setP2Shooting(-1);
 			}
 		});
 	}
 
 	public void startGame(int i) {
 		// setup game then start timer
-		whichplayer=i;
-		socketClient=new GameClient();
+		whichplayer = i;
+		socketClient = new GameClient();
 		gameTimer.start();
-		
+
 		//makes the game client
-		
-	
-	
+
 	}
 
 	@Override
@@ -250,11 +260,12 @@ public class Panel extends JPanel implements ActionListener {
 		movestuff();
 		repaint();
 	}
+
 	private void updateservervalues() {
 		// TODO Auto-generated method stub
-		int i=0;
+		int i = 0;
 		//if(GameClientRe.clientsvalues[i]==0&&
-		
+
 	}
 
 	private void movestuff() {
@@ -403,6 +414,32 @@ public class Panel extends JPanel implements ActionListener {
 	}
 
 	private void checkForColision() {
+		int heigh = sheet.getPlayer().getHeight(null);
+		int width = sheet.getPlayer().getWidth(null);
+		if (player.getX() + width > this.getWidth()) {
+			p1Right = false;
+		}
+		if (player.getX() < 0) {
+			p1Left = false;
+		}
+		if (player.getY() + heigh > this.getHeight()) {
+			p1Down = false;
+		}
+		if (player.getY() < 0) {
+			p1Up = false;
+		}
+		if (player2.getX() + width > this.getWidth()) {
+			p2Right = false;
+		}
+		if (player2.getX() < 0) {
+			p2Left = false;
+		}
+		if (player2.getY() + heigh > this.getHeight()) {
+			p2Down = false;
+		}
+		if (player2.getY() < 0) {
+			p2Up = false;
+		}
 		for (Objects objects : bullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
