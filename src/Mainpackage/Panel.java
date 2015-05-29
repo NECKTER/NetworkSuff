@@ -25,10 +25,11 @@ public class Panel extends JPanel implements ActionListener {
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
 	private final int pnum;
-	private LoadMap map;
+	private LoadMap loadmap;
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
 	private ArrayList<Objects> garbage = new ArrayList<Objects>();
+	private int[][] map = new int[90][160];
 	private Objects player = new Objects(200, 400, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
 	private boolean p1CanMove = true;
 	private boolean p1Up = false;
@@ -53,7 +54,7 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
-	private int whichplayer = 1;
+	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
 	private GameServer socketServer;
 
@@ -67,7 +68,8 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
 		pnum = 1;
-		map = new LoadMap();
+		loadmap = new LoadMap();
+		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
@@ -241,12 +243,11 @@ public class Panel extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		//paint what is to be seen then the game has not yet started or has ended
+		g.drawImage(sheet.getBackround(), 0, 0, 1600, 900, null);
 		if (!gameTimer.isRunning()) {
-			g.drawString("OUTLAW", 800, 450);
-			g.drawImage(sheet.getMain(), 0, 0, null);
-			player.drawDeath(g, p1col);
 			return;
 		}
+		drawMap(g);
 		drawBullets(g);
 //		p1col = colorize();
 //		p2col = colorize();
@@ -304,6 +305,14 @@ public class Panel extends JPanel implements ActionListener {
 				if (p2Right) {
 					player2.move(player2.getX() + 1, player2.getY());
 				}
+			}
+		}
+	}
+
+	private void drawMap(Graphics g) {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				if (map[i][j] == 1) g.fillRect(j * 10, i * 10, 10, 10);
 			}
 		}
 	}
@@ -416,6 +425,7 @@ public class Panel extends JPanel implements ActionListener {
 	}
 
 	private void checkForColision() {
+		//keeps players on screen
 		int heigh = sheet.getPlayer().getHeight(null);
 		int width = sheet.getPlayer().getWidth(null);
 		if (player.getX() + width > this.getWidth()) {
@@ -442,6 +452,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (player2.getY() < 0) {
 			p2Up = false;
 		}
+		//if player hit player 2
 		for (Objects objects : bullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
@@ -459,6 +470,7 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		bullets.removeAll(garbage);
 		garbage.clear();
+		//if player 2 hit player
 		for (Objects objects : enemybullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
@@ -476,10 +488,34 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
+		//bullet collision
 		if (!bullets.isEmpty() && !enemybullets.isEmpty() && enemybullets.get(0).getRect().contains(new Point(bullets.get(0).getX(), bullets.get(0).getY())) == true) {
 			enemybullets.remove(0);
 			bullets.remove(0);
 		}
+		//if a bullet hit a wall
+		for (Objects objects : bullets) {
+			if (objects.getY() / 10 > 0 && objects.getY() / 10 < 90 && objects.getX() / 10 > 0 && objects.getX() / 10 < 160) {
+				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
+					map[objects.getY() / 10][objects.getX() / 10] = 0;
+					sound.play("break");
+					garbage.add(objects);
+				}
+			}
+		}
+		bullets.removeAll(garbage);
+		garbage.clear();
+		for (Objects objects : enemybullets) {
+			if (objects.getY() / 10 > 0 && objects.getY() / 10 < 90 && objects.getX() / 10 > 0 && objects.getX() / 10 < 160) {
+				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
+					map[objects.getY() / 10][objects.getX() / 10] = 0;
+					sound.play("break");
+					garbage.add(objects);
+				}
+			}
+		}
+		enemybullets.removeAll(garbage);
+		garbage.clear();
 	}
 
 	private void checkShooting() {

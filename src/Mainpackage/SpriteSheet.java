@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 	private BufferedImage main;
+	private Image backround;
 	private Image player;//138 125 201 224
 	private Image playerDeath;//1 177 65 241
 	private Image bullet;//0 494 7 501
@@ -21,6 +22,7 @@ public class SpriteSheet {
 	public SpriteSheet() {
 		try {
 			main = ImageIO.read(SpriteSheet.class.getResourceAsStream("images/outlaw_sprites.png"));
+			backround = ImageIO.read(SpriteSheet.class.getResourceAsStream("images/backround.png"));
 		} catch (IOException e) {
 		}
 		try {
@@ -37,6 +39,10 @@ public class SpriteSheet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public Image getBackround() {
+		return backround;
 	}
 
 	public BufferedImage getMain() {

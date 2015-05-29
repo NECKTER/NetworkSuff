@@ -1,12 +1,17 @@
 package Mainpackage;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -14,12 +19,11 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 public class LoadMap {
 //map is 160 pixles by 90 pixles
 	private JFileChooser jfc = new JFileChooser();
-	private Image mapImage;
-	private ArrayList<Point> map = new ArrayList<>();
+	private BufferedImage mapImage;
+	private int[][] map = new int[90][160];
 
 	public LoadMap() {
 		// TODO Auto-generated constructor stub
-		JFileChooser jfc = new JFileChooser();
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			jfc.updateUI();
@@ -37,14 +41,41 @@ public class LoadMap {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, "Please choose a map to play on");
+		load();
+	}
+
+	private void load() {
+		// TODO Auto-generated method stub
+		jfc.showOpenDialog(null);
+		File doc = jfc.getSelectedFile();
 		try {
-			jfc.setCurrentDirectory(new File(LoadMap.class.getResource("LoadMap.class").toURI().toString()));
-		} catch (URISyntaxException e) {
+			mapImage = ImageIO.read(doc);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		jfc.showOpenDialog(null);
-		File doc = jfc.getSelectedFile();
+		if (mapImage.getWidth() == 160 && mapImage.getHeight() == 90) {
+			fillArray();
+		} else {
+			JOptionPane.showMessageDialog(null, "This file is the wrong size for a map!!!\n Please choose a different image.");
+			load();
+		}
+	}
 
+	private void fillArray() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				map[i][j] = 0;
+				if (!new Color(mapImage.getRGB(j, i)).equals(new Color(255, 255, 255))) {
+					map[i][j] = 1;
+				}
+			}
+		}
+	}
+
+	public int[][] getMap() {
+		return map;
 	}
 }
