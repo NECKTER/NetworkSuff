@@ -25,10 +25,11 @@ public class Panel extends JPanel implements ActionListener {
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
 	private final int pnum;
+	private LoadMap map;
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
 	private ArrayList<Objects> garbage = new ArrayList<Objects>();
-	private Objects player = new Objects(200, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private Objects player = new Objects(200, 400, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
 	private boolean p1CanMove = true;
 	private boolean p1Up = false;
 	private boolean p1Right = false;
@@ -39,7 +40,7 @@ public class Panel extends JPanel implements ActionListener {
 	private int p1moves = 0;
 	private int p1Bullet = 0;
 	private boolean p1WasHit = false;
-	private Objects player2 = new Objects(1300, 300, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private Objects player2 = new Objects(1300, 400, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
 	private boolean p2CanMove = true;
 	private boolean p2Up = false;
 	private boolean p2Right = false;
@@ -66,6 +67,7 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
 		pnum = 1;
+		map = new LoadMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
