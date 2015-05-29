@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 
 import Mainpackage.Panel;
@@ -18,30 +19,51 @@ public class GameServer {
 	}
 
 	public static void main(String[] args){
-		int [] states=new int [8];
-		String data="Swag city";
+		int [] states=new int [10];
+		String data="";
 		Boolean hj;
+		Socket skm;
+		
+		String outData="";
+		String inputString=null;
+		for(int i =0;i<9;i++){
+			states[i]=1;
+		}
 		while(true){
 		try {
-			ServerSocket srvr=new ServerSocket(1234);
-			Socket skt=srvr.accept();
-			System.out.println("It connected");
-			BufferedReader in = new BufferedReader(
-		            new InputStreamReader (skt.getInputStream()));
-			while (!in.ready()) {}
+			skm = new Socket("localhost", 1239);
 			
-			for(int i =0;i<8;i++){
-				states[i]=in.readLine().trim().charAt(i);
+			ServerSocket srvr=new ServerSocket(1234);
+			Socket skl=srvr.accept();
+		//	skt = new Socket("localhost", 1234);
+		//  SocketAddress up=	srvr.getLocalSocketAddress();
+		    //System.out.println(up);
+			System.out.println("It connected");
+		
+			BufferedReader in = new BufferedReader(
+		            new InputStreamReader (skl.getInputStream()));
+			PrintWriter out = new PrintWriter(skm.getOutputStream(),true);	
+			
+			while ((inputString = in.readLine())!=null) {System.out.println("LOOP"); System.out.println(inputString); data+=(inputString);}
+			System.out.println("It recieved data");
+	    	System.out.println(data);
+			for(int i =0;i<10;i++){
+				states[i]=data.trim().charAt(i);
 			}
-			PrintWriter out = new PrintWriter(skt.getOutputStream(),true);	
+			System.out.println("Saved states");
+			
 			for (int l=0;l<8;l++){
-			 data=data+states[l];
+			 outData=outData+states[l];
 			}
-			out.write(data);;
-	        
+			
+			System.out.println("Repackaged");
+			
+			out.println(outData);
+	        out.flush();
 			in.close();
 			out.close();
-			skt.close();
+			skl.close();
+			skm.close();
 			srvr.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
