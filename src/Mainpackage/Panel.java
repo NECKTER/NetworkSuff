@@ -69,7 +69,7 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
 		pnum = 1;
-		loadmap = new LoadMap("wall.png");
+		loadmap = new LoadMap("space.png");
 		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());

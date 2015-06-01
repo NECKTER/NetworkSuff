@@ -21,18 +21,20 @@ public class GameClient {
 	
 	
 	public static void main(String[] args){
+		 int [] states=new int [10];
 		String inputString = "";
 		String data = "";
-		String info = "1000010001";
+		String info = "1000000001";
 		String infoOut="";
 		Socket skt;
+		Socket skj;
+		while(true){
 		try {
-			
-			skt = new Socket("localhost", 1234);
 			ServerSocket srv=new ServerSocket(1238);
-			Socket skm=srv.accept();
+			skt = new Socket("localhost", 1234);
+			skj=srv.accept();
 			BufferedReader in = new BufferedReader(new
-		            InputStreamReader(skt.getInputStream()));
+		    InputStreamReader(skj.getInputStream()));
 			PrintWriter pw = new PrintWriter(skt.getOutputStream(),true);//, true);
 			 pw.println(info);
 			 pw.flush();
@@ -44,7 +46,7 @@ public class GameClient {
 		        // Read one line and output it
 		         System.out.println(data);
                for(int i=0;i<10;i++){
-              	clientsvalues[i]=in.readLine().trim().charAt(i); 
+              	clientsvalues[i]=data.trim().charAt(i); 
       }
 		         System.out.println("Unpackaged");
 		      
@@ -56,7 +58,7 @@ public class GameClient {
 			 in.close();
 			 
 	         pw.close();
-	         skm.close();
+	        
 	         srv.close();
 	         skt.close();
 		         
@@ -72,6 +74,6 @@ public class GameClient {
 	
 	
 	}
-	
+	}
 }
 
