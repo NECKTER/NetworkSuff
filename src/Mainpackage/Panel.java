@@ -25,6 +25,7 @@ public class Panel extends JPanel implements ActionListener {
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
 	private final int pnum;
+	private final int maxBullets = 1;
 	private LoadMap loadmap;
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
@@ -68,7 +69,7 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
 		pnum = 1;
-		loadmap = new LoadMap();
+		loadmap = new LoadMap("wall.png");
 		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
@@ -516,6 +517,13 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
+		//player walking into wall
+		for (Point p : player.getPixels()) {
+			if ((int) ((p.getX() + 1) / 10) < 160 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() + 1) / 10)] == 1) p1Right = false;
+			if ((int) ((p.getX() - 1) / 10) > 0 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() - 1) / 10)] == 1) p1Left = false;
+			if ((int) ((p.getY() - 1) / 10) > 0 && map[(int) ((p.getY() - 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Up = false;
+			if ((int) ((p.getY() + 1) / 10) < 90 && map[(int) ((p.getY() + 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Down = false;
+		}
 	}
 
 	private void checkShooting() {
@@ -523,7 +531,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (p2Shooting == 1) p2CanMove = false;
 		if (p2Shooting == -1) {
 			p2CanMove = true;
-			if (enemybullets.isEmpty() && !p2WasHit) {
+			if (enemybullets.size() < maxBullets && !p2WasHit) {
 				switch (p2Bullet) {
 				case 1:
 					enemybullets.add(new Objects(player2.getX() - 5, player2.getY() + 10, 5, 5, sheet.getBullet(), p2Bullet, -1));
@@ -546,7 +554,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (p1Shooting == -1) {
 			p1CanMove = true;
 
-			if (bullets.isEmpty() && !p1WasHit) {
+			if (bullets.size() < maxBullets && !p1WasHit) {
 				switch (p1Bullet) {
 				case 1:
 					bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));

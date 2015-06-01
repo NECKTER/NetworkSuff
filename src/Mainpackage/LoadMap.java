@@ -45,6 +45,11 @@ public class LoadMap {
 		load();
 	}
 
+	public LoadMap(String s) {
+		// TODO Auto-generated constructor stub
+		load(s);
+	}
+
 	private void load() {
 		// TODO Auto-generated method stub
 		jfc.showOpenDialog(null);
@@ -60,6 +65,18 @@ public class LoadMap {
 		} else {
 			JOptionPane.showMessageDialog(null, "This file is the wrong size for a map!!!\n Please choose a different image.");
 			load();
+		}
+	}
+
+	private void load(String s) {
+		// TODO Auto-generated method stub
+		try {
+			mapImage = ImageIO.read(LoadMap.class.getResourceAsStream("images/" + s));
+			System.out.println(s + " map was loaded");
+			fillArray();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
