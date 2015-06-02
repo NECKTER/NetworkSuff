@@ -18,6 +18,10 @@ public class GameClient {
 	
 	public static int[] clientsvalues=new int[10];
 	Panel l;
+	static int thisclientport=1234;
+	GameClient(int port){
+		this.thisclientport=port;
+	}
 	
 	
 	public static void main(String[] args){
@@ -33,8 +37,8 @@ public class GameClient {
 			inputString="";
 		try {
 			ServerSocket srv=new ServerSocket(1238);
-			skt = new Socket("localhost", 1236);
 			skj=srv.accept();
+			skt = new Socket("localhost", thisclientport);
 			BufferedReader in = new BufferedReader(new
 		    InputStreamReader(skj.getInputStream()));
 			PrintWriter pw = new PrintWriter(skt.getOutputStream(),true);//, true);
