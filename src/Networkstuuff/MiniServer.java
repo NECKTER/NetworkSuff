@@ -25,8 +25,11 @@ public class MiniServer extends Thread{
 	    public void run(){
 	            //Read input and process here
                 Socket skm;
+                outData="";
+                data="";
 				try {
-					skm = new Socket("localhost", 1238);
+					
+					skm = new Socket("localhost", 1231);
 			
 					// TODO Auto-generated catch block
 					
@@ -38,7 +41,8 @@ public class MiniServer extends Thread{
 				BufferedReader in = new BufferedReader(
 			            new InputStreamReader (skl.getInputStream()));
 				PrintWriter out = new PrintWriter(skm.getOutputStream(),true);	
-				
+				out.println(outData);
+		        out.flush();
 				while ((inputString = in.readLine())!=null) {System.out.println("LOOP"); System.out.println(inputString);data+=inputString; if(inputString!=null){break;}}
 				System.out.println("It recieved data");
 		    	System.out.println(data);
