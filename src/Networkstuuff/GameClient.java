@@ -29,6 +29,7 @@ public class GameClient {
 		Socket skt;
 		Socket skj;
 		while(true){
+			infoOut="";
 		try {
 			ServerSocket srv=new ServerSocket(1238);
 			skt = new Socket("localhost", 1234);
@@ -45,6 +46,7 @@ public class GameClient {
 		         System.out.println("Recieved data");
 		        // Read one line and output it
 		         System.out.println(data);
+		         
                for(int i=0;i<10;i++){
               	clientsvalues[i]=data.trim().charAt(i); 
       }

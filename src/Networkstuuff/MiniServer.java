@@ -26,6 +26,8 @@ public class MiniServer extends Thread{
 	            //Read input and process here
                 Socket skm;
 				try {
+					outData="";
+					data="";
 					skm = new Socket("localhost", 1238);
 			
 					// TODO Auto-generated catch block
@@ -59,7 +61,7 @@ public class MiniServer extends Thread{
 				out.close();
 				skl.close();
 				skm.close();
-				srvr.close();
+				//srvr.close();
 	    }
 				catch(IOException e){
 					
