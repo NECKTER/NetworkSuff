@@ -1,61 +1,79 @@
 package Networkstuuff;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.ArrayList;
+import java.net.UnknownHostException;
 
 import Mainpackage.Panel;
+
 public class GameClient {
-
-	public GameClient() {
-		// TODO Auto-generated constructor stub
-		
-	}
-
+	
+	public static int[] clientsvalues=new int[10];
+	Panel l;
+	
+	
 	public static void main(String[] args){
-		int [] states=new int [10];
-		ServerSocket srvr=null;
-		ServerSocket srt=null;
-		
-		for(int i =0;i<9;i++){
-			states[i]=1;
-		}
-		
+		 int [] states=new int [10];
+		String inputString = "";
+		String data = "";
+		String info = "1000000001";
+		String infoOut="";
+		Socket skt;
+		Socket skj;
+		while(true){
 		try {
-			//skm = new Socket("localhost", 1239);
-			
-			 srvr=new ServerSocket(1389);
-	//		 srt=new ServerSocket(1236);
-		
+			ServerSocket srv=new ServerSocket(1238);
+			skt = new Socket("localhost", 1234);
+			skj=srv.accept();
+			BufferedReader in = new BufferedReader(new
+		    InputStreamReader(skj.getInputStream()));
+			PrintWriter pw = new PrintWriter(skt.getOutputStream(),true);//, true);
+			 pw.println(info);
+			 pw.flush();
+			 
+		         System.out.print("Message sent");
+                 
+				while ((inputString = in.readLine())!=null) {System.out.println("LOOP"); System.out.println(inputString); data+=(inputString);}
+		         System.out.println("Recieved data");
+		        // Read one line and output it
+		         System.out.println(data);
+               for(int i=0;i<10;i++){
+              	clientsvalues[i]=data.trim().charAt(i); 
+      }
+		         System.out.println("Unpackaged");
+		      
+    for(int i =0; i<9;i++){
+          infoOut=infoOut+clientsvalues[i];
+	         }
+		         System.out.println("Repackedged");   
+		         
+			 in.close();
+			 
+	         pw.close();
+	        
+	         srv.close();
+	         skt.close();
+		         
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Didnt work");
+			e.printStackTrace();
 		}
 		
-			
-			Socket skn=null;
-			
-			try {
-				Socket skl = srvr.accept();
-				MiniServer mini = new MiniServer(skl);
-				 mini.start();
-			//	skn =srt.accept();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-		//	MiniServer mini2=new MiniServer(skn);
-           
-          //  mini2.start();
-	}
+         
 	
-
+	
+	}
+	}
 }
+
