@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 import Networkstuuff.GameClient;
-import Networkstuuff.GameServ;
+import Networkstuuff.GameServer;
 import Networkstuuff.GameServer;
 
 public class Panel extends JPanel implements ActionListener {
@@ -58,7 +58,7 @@ public class Panel extends JPanel implements ActionListener {
 	private int ticks2 = 0;
 	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
-	private GameServ socketServer;
+	private GameServer socketServer;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -615,5 +615,14 @@ public class Panel extends JPanel implements ActionListener {
 
 	public void setP2Shooting(int p1Shooting) {
 		this.p2Shooting = p1Shooting;
+	}
+
+	private void scrollMap() {
+		int temp = 0;
+		for (int i = 0; i < 160; i++) {
+			for (int j = 0; j < 90; j++) {
+				
+			}
+		}
 	}
 }
