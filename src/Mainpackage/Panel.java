@@ -28,6 +28,7 @@ public class Panel extends JPanel implements ActionListener {
 	private final int pnum;
 	private final int maxBullets = 1;
 	private LoadMap loadmap;
+	private boolean foreverbullet = false;
 	private ArrayList<Objects> bullets = new ArrayList<Objects>();
 	private ArrayList<Objects> enemybullets = new ArrayList<Objects>();
 	private ArrayList<Objects> garbage = new ArrayList<Objects>();
@@ -59,6 +60,8 @@ public class Panel extends JPanel implements ActionListener {
 	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
 	private GameServer socketServer;
+	private int scrollSpeed = Integer.MAX_VALUE;
+	private long lastScroll = System.currentTimeMillis();
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -70,7 +73,7 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
 		pnum = 1;
-		loadmap = new LoadMap("space.png");
+		loadmap = new LoadMap("wall.png");
 		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
@@ -277,6 +280,10 @@ public class Panel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub\
 		checkForColision();
 		checkShooting();
+		if (System.currentTimeMillis() - lastScroll > scrollSpeed) {
+			scrollMap();
+			lastScroll = System.currentTimeMillis();
+		}
 		if (bullets.isEmpty()) {
 			if (p1CanMove) {
 				if (p1Down) {
@@ -454,12 +461,17 @@ public class Panel extends JPanel implements ActionListener {
 		if (player2.getY() < 0) {
 			p2Up = false;
 		}
-		//if player hit player 2
+		//if players hit
 		for (Objects objects : bullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false) {
-					objects.bounce();
+				if (objects.Hasbounced() == false || foreverbullet) {
+					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
+					else {
+						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+						else
+							garbage.add(objects);
+					}
 				} else {
 					garbage.add(objects);
 				}
@@ -472,12 +484,17 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		bullets.removeAll(garbage);
 		garbage.clear();
-		//if player 2 hit player
+
 		for (Objects objects : enemybullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false) {
-					objects.bounce();
+				if (objects.Hasbounced() == false || foreverbullet) {
+					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
+					else {
+						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+						else
+							garbage.add(objects);
+					}
 				} else {
 					garbage.add(objects);
 				}
@@ -490,6 +507,27 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
+
+		for (Objects objects : bullets) {
+			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
+				garbage.add(objects);
+				sound.play("death");
+				p1WasHit = true;
+			}
+		}
+		bullets.removeAll(garbage);
+		garbage.clear();
+
+		for (Objects objects : enemybullets) {
+			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
+				garbage.add(objects);
+				sound.play("death");
+				p2WasHit = true;
+			}
+		}
+		enemybullets.removeAll(garbage);
+		garbage.clear();
+
 		//bullet collision
 		if (!bullets.isEmpty() && !enemybullets.isEmpty() && enemybullets.get(0).getRect().contains(new Point(bullets.get(0).getX(), bullets.get(0).getY())) == true) {
 			enemybullets.remove(0);
@@ -501,7 +539,7 @@ public class Panel extends JPanel implements ActionListener {
 				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
 					map[objects.getY() / 10][objects.getX() / 10] = 0;
 					sound.play("break");
-					garbage.add(objects);
+					if (!foreverbullet) garbage.add(objects);
 				}
 			}
 		}
@@ -512,7 +550,7 @@ public class Panel extends JPanel implements ActionListener {
 				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
 					map[objects.getY() / 10][objects.getX() / 10] = 0;
 					sound.play("break");
-					garbage.add(objects);
+					if (!foreverbullet) garbage.add(objects);
 				}
 			}
 		}
@@ -561,7 +599,7 @@ public class Panel extends JPanel implements ActionListener {
 					bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));
 					break;
 				case 0:
-					bullets.add(new Objects(player.getX() + 55, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
+					bullets.add(new Objects(player.getX() + 59, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
 					break;
 				case -1:
 					bullets.add(new Objects(player.getX() + 55, player.getY() + 55, 5, 5, sheet.getBullet(), p1Bullet, 1));
@@ -619,9 +657,17 @@ public class Panel extends JPanel implements ActionListener {
 
 	private void scrollMap() {
 		int temp = 0;
-		for (int i = 0; i < 160; i++) {
-			for (int j = 0; j < 90; j++) {
-				
+		for (int i = 0; i < map[0].length; i++) {
+			for (int j = map.length - 1; j >= 0; j--) {
+				if (j == map.length - 1) {
+					temp = map[j][i];
+				}
+				if (j > 0) {
+					map[j][i] = map[j - 1][i];
+				} else {
+					map[j][i] = temp;
+				}
+
 			}
 		}
 	}
