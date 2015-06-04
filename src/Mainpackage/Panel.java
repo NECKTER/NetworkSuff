@@ -60,7 +60,8 @@ public class Panel extends JPanel implements ActionListener {
 	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
 	private GameServer socketServer;
-	private int scrollSpeed = Integer.MAX_VALUE;
+	//if you dont want the game to scroll you need to set the scroll speed to intiger.maxvalue
+	private int scrollSpeed = 333;
 	private long lastScroll = System.currentTimeMillis();
 
 	public Panel() {
@@ -558,8 +559,8 @@ public class Panel extends JPanel implements ActionListener {
 		garbage.clear();
 		//player walking into wall
 		for (Point p : player.getPixels()) {
-			if ((int) ((p.getX() + 1) / 10) < 160 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() + 1) / 10)] == 1) p1Right = false;
-			if ((int) ((p.getX() - 1) / 10) > 0 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() - 1) / 10)] == 1) p1Left = false;
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() + 1) / 10)] == 1) p1Right = false;
+			if ((int) ((p.getX() - 1) / 10) > 0 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() - 1) / 10)] == 1) p1Left = false;
 			if ((int) ((p.getY() - 1) / 10) > 0 && map[(int) ((p.getY() - 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Up = false;
 			if ((int) ((p.getY() + 1) / 10) < 90 && map[(int) ((p.getY() + 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Down = false;
 		}
@@ -653,6 +654,14 @@ public class Panel extends JPanel implements ActionListener {
 
 	public void setP2Shooting(int p1Shooting) {
 		this.p2Shooting = p1Shooting;
+	}
+
+	public void toggleForeverbullet() {
+		if (foreverbullet) {
+			foreverbullet = false;
+		} else {
+			foreverbullet = true;
+		}
 	}
 
 	private void scrollMap() {
