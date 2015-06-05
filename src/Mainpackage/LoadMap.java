@@ -92,6 +92,11 @@ public class LoadMap {
 		}
 	}
 
+	public void changeMap() {
+		LoadMap temp = new LoadMap();
+		map = temp.getMap();
+	}
+
 	public int[][] getMap() {
 		return map;
 	}

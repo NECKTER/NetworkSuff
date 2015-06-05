@@ -32,6 +32,7 @@ public class Panel extends JPanel implements ActionListener {
 	private ArrayList<Objects> garbage = new ArrayList<Objects>();
 	private int[][] map = new int[90][160];
 	private Objects player = new Objects(200, 400, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private int p1Health = 10;
 	private boolean p1CanMove = true;
 	private boolean p1Up = false;
 	private boolean p1Right = false;
@@ -43,6 +44,7 @@ public class Panel extends JPanel implements ActionListener {
 	private int p1Bullet = 0;
 	private boolean p1WasHit = false;
 	private Objects player2 = new Objects(1300, 400, sheet.getPlayer().getHeight(null), sheet.getPlayer().getHeight(null), sheet.getPlayer());
+	private int p2Health = 10;
 	private boolean p2CanMove = true;
 	private boolean p2Up = false;
 	private boolean p2Right = false;
@@ -55,11 +57,10 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
-	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
 	private GameServer socketServer;
 
-	public Panel() {
+	public Panel(int i) {
 		this.setPreferredSize(new Dimension(1600, 900));
 		this.setBackground(Color.WHITE);
 		Objects.panel = this;
@@ -68,8 +69,13 @@ public class Panel extends JPanel implements ActionListener {
 		//block break and step sound
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
+<<<<<<< HEAD
 		pnum = 1;
 		loadmap = new LoadMap("space.png");
+=======
+		pnum = i;
+		loadmap = new LoadMap("wall.png");
+>>>>>>> origin/master
 		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
@@ -262,8 +268,9 @@ public class Panel extends JPanel implements ActionListener {
 		});
 	}
 
-	public void startGame(int i) {
+	public void startGame() {
 		// setup game then start timer
+<<<<<<< HEAD
 		whichplayer = i;
 		if(whichplayer==1){
 		socketServer=new GameServer()	;
@@ -271,6 +278,13 @@ public class Panel extends JPanel implements ActionListener {
 		else{
 		socketClient = new GameClient();
 		}
+=======
+		socketClient = new GameClient();
+		p1Health = 10;
+		p2Health = 10;
+		player.move(200, 400);
+		player2.move(1300, 400);
+>>>>>>> origin/master
 		gameTimer.start();
 
 		//makes the game client
@@ -297,9 +311,21 @@ public class Panel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// do stuff and then repaint
+		checkGameOver();
 		updateservervalues();
 		movestuff();
 		repaint();
+	}
+
+	private void checkGameOver() {
+		// TODO Auto-generated method stub
+		if (p1Health < 1) {
+			gameTimer.stop();
+		}
+		if (p2Health < 1) {
+			gameTimer.stop();
+
+		}
 	}
 
 	private void updateservervalues() {
@@ -715,4 +741,41 @@ public class Panel extends JPanel implements ActionListener {
 	public void setP2Shooting(int p1Shooting) {
 		this.p2Shooting = p1Shooting;
 	}
+<<<<<<< HEAD
+=======
+
+	public void toggleForeverbullet() {
+		if (foreverbullet) {
+			foreverbullet = false;
+		} else {
+			foreverbullet = true;
+		}
+	}
+
+	public void setScrollSpeed(int scrollSpeed) {
+		this.scrollSpeed = scrollSpeed;
+	}
+
+	public void changeMap() {
+		loadmap.changeMap();
+		map = loadmap.getMap();
+	}
+
+	private void scrollMap() {
+		int temp = 0;
+		for (int i = 0; i < map[0].length; i++) {
+			for (int j = map.length - 1; j >= 0; j--) {
+				if (j == map.length - 1) {
+					temp = map[j][i];
+				}
+				if (j > 0) {
+					map[j][i] = map[j - 1][i];
+				} else {
+					map[j][i] = temp;
+				}
+
+			}
+		}
+	}
+>>>>>>> origin/master
 }
