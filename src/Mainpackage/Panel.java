@@ -304,8 +304,71 @@ public class Panel extends JPanel implements ActionListener {
 
 	private void updateservervalues() {
 		// TODO Auto-generated method stub
-		int i = 0;
-		//if(GameClientRe.clientsvalues[i]==0&&
+		if(pnum==1){
+			if(socketServer.getmini().getvalue(5)=="n"){
+				p2Left=false;
+			}
+			else{
+				p2Left=true;
+			}
+			if(socketServer.getmini().getvalue(6)=="n"){
+				p2Right=false;
+			}
+			else{
+				p2Right=true;
+			}
+			if(socketServer.getmini().getvalue(7)=="n"){
+				p2Up=false;
+			}
+			else{
+				p2Up=true;
+			}
+			if(socketServer.getmini().getvalue(8)=="n"){
+				p2Down=false;
+			}
+			else{
+				p2Down=true;
+			}
+			if(socketServer.getmini().getvalue(9)=="y"){
+				p2Shooting=1;
+			}
+			else{            //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
+				//p2Shooting=;
+			}
+		}
+		else if(pnum==2){
+			if(socketClient.getvalue(0)=="n"){
+				p1Left=false;
+			}
+			else{
+				p1Left=true;
+			}
+			if(socketClient.getvalue(1)=="n"){
+				p1Right=false;
+			}
+			else{
+				p1Right=true;
+			}
+			if(socketClient.getvalue(2)=="n"){
+				p1Up=false;
+			}
+			else{
+				p1Up=true;
+			}
+			if(socketClient.getvalue(3)=="n"){
+				p1Down=false;
+			}
+			else{
+				p1Down=true;
+			}
+			if(socketClient.getvalue(4)=="y"){
+				p1Shooting=1;
+			}
+			else{            //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
+				//p2Shooting=;
+			}
+		}
+		
 
 	}
 

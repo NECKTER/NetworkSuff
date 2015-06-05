@@ -271,6 +271,10 @@ public class Objects {
 		hasbounced = true;
 	}
 
+	public void changeDirection() {
+		forwardOrBack *= -1;
+	}
+
 	public boolean Hasbounced() {
 		return hasbounced;
 	}

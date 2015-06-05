@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import Mainpackage.Panel;
 
 public class GameClient {
+
 	
 	public static String[] clientsvalues=new String[10];
 	Panel l;
@@ -30,7 +31,6 @@ public class GameClient {
 		 return clientsvalues[l];
 	 }
 	public GameClient(){
-		
 		for(int i=0;i<10;i++){
 			clientsvalues[i]=("n");
 		}
@@ -89,12 +89,9 @@ public class GameClient {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+
 		}
-		
-         
-	
-	
-	}
+		}
 	}
 }
-

@@ -34,10 +34,12 @@ public class Frame extends JFrame implements ActionListener {
 		menuBar.setVisible(true);
 		JMenu fileMenu = new JMenu("Game");
 		JMenuItem newItem = new JMenuItem("Start");
+		JMenuItem toggleForeverbullet = new JMenuItem("ForeverBullet");
 		newItem.addActionListener(this);// this allows the JMenuItem called
-										// newItem to tell the Frame that
-										// someone has chosen "new"
+		toggleForeverbullet.addActionListener(this);// newItem to tell the Frame that
+		// someone has chosen "new"
 		fileMenu.add(newItem);
+		fileMenu.add(toggleForeverbullet);
 		menuBar.add(fileMenu);
 		// menuBar.setUI(new BasicMenuBarUI());
 		setJMenuBar(menuBar);
@@ -47,6 +49,10 @@ public class Frame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		panel.startGame(1);
+		if (e.getActionCommand() == "Start") panel.startGame(1);
+		if (e.getActionCommand() == "ForeverBullet") {
+			panel.toggleForeverbullet();
+			System.out.println("forever");
+		}
 	}
 }
