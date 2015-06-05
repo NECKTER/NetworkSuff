@@ -14,7 +14,6 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 import Networkstuuff.GameClient;
-import Networkstuuff.GameServ;
 import Networkstuuff.GameServer;
 
 public class Panel extends JPanel implements ActionListener {
@@ -58,7 +57,7 @@ public class Panel extends JPanel implements ActionListener {
 	private int ticks2 = 0;
 	private int whichplayer = 1;//trey do not use this use pnum. It is better to use a final because the player number is never going to change.
 	private GameClient socketClient;
-	private GameServ socketServer;
+	private GameServer socketServer;
 
 	public Panel() {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -106,9 +105,14 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Up(true);
-				else
+				if (pnum == 1){ setP1Up(true);if(socketServer.getmini().getvalue(2)=="n"){socketServer.getmini().togglevalue(2);}}
+				else{
 					setP2Up(true);
+					if(socketClient.getvalue(7)=="n"){
+						socketClient.togglevalue(7);
+					}
+					
+				}
 			}
 		});
 		this.getActionMap().put("up off", new AbstractAction() {
@@ -119,9 +123,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Up(false);
+				if (pnum == 1){ setP1Up(false);if(socketServer.getmini().getvalue(2)=="y"){socketServer.getmini().togglevalue(2);}}
 				else
 					setP2Up(false);
+				if(socketClient.getvalue(7)=="y"){
+					socketClient.togglevalue(7);
+				}
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -132,9 +139,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Down(true);
+				if (pnum == 1){ setP1Down(true);if(socketServer.getmini().getvalue(3)=="n"){socketServer.getmini().togglevalue(3);}}
 				else
 					setP2Down(true);
+				if(socketClient.getvalue(8)=="n"){
+					socketClient.togglevalue(8);
+				}
 
 			}
 		});
@@ -146,9 +156,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Down(false);
+				if (pnum == 1){ setP1Down(false);if(socketServer.getmini().getvalue(3)=="y"){socketServer.getmini().togglevalue(3);}}
 				else
 					setP2Down(false);
+				if(socketClient.getvalue(8)=="y"){
+					socketClient.togglevalue(8);
+				}
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -159,9 +172,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Right(true);
+				if (pnum == 1){ setP1Right(true);if(socketServer.getmini().getvalue(1)=="n"){socketServer.getmini().togglevalue(1);}}
 				else
 					setP2Right(true);
+				if(socketClient.getvalue(6)=="n"){
+					socketClient.togglevalue(6);
+				}
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -172,9 +188,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Right(false);
+				if (pnum == 1){ setP1Right(false);if(socketServer.getmini().getvalue(1)=="y"){socketServer.getmini().togglevalue(1);}}
 				else
 					setP2Right(false);
+				if(socketClient.getvalue(6)=="y"){
+					socketClient.togglevalue(6);
+				}
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -185,9 +204,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Left(true);
+				if (pnum == 1){ setP1Left(true);if(socketServer.getmini().getvalue(0)=="n"){socketServer.getmini().togglevalue(0);}}
 				else
 					setP2Left(true);
+				if(socketClient.getvalue(5)=="n"){
+					socketClient.togglevalue(5);
+				}
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -198,9 +220,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Left(false);
+				if (pnum == 1){ setP1Left(false);if(socketServer.getmini().getvalue(0)=="n"){socketServer.getmini().togglevalue(0);}}
 				else
 					setP2Left(false);
+				if(socketClient.getvalue(5)=="y"){
+					socketClient.togglevalue(5);
+				}
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -211,9 +236,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Shooting(1);
+				if (pnum == 1){ setP1Shooting(1);if(socketServer.getmini().getvalue(4)=="n"){socketServer.getmini().togglevalue(4);}}
 				else
 					setP2Shooting(1);
+				if(socketClient.getvalue(9)=="n"){
+					socketClient.togglevalue(9);
+				}
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -224,9 +252,12 @@ public class Panel extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pnum == 1) setP1Shooting(-1);
+				if (pnum == 1){ setP1Shooting(-1);if(socketServer.getmini().getvalue(4)=="n"){socketServer.getmini().togglevalue(4);}}
 				else
 					setP2Shooting(-1);
+				if(socketClient.getvalue(9)=="y"){
+					socketClient.togglevalue(9);
+				}
 			}
 		});
 	}
@@ -234,7 +265,12 @@ public class Panel extends JPanel implements ActionListener {
 	public void startGame(int i) {
 		// setup game then start timer
 		whichplayer = i;
+		if(whichplayer==1){
+		socketServer=new GameServer()	;
+		}
+		else{
 		socketClient = new GameClient();
+		}
 		gameTimer.start();
 
 		//makes the game client

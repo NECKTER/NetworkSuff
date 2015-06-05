@@ -12,19 +12,17 @@ import java.util.ArrayList;
 
 import Mainpackage.Panel;
 public class GameServer {
-
+ MiniServer mini=null;
 	public GameServer() {
 		// TODO Auto-generated constructor stub
 		
 	}
 
 	public static void main(String[] args){
-		int [] states=new int [10];
+		
 		ServerSocket srvr=null;
-		ServerSocket srt=null;
-		for(int i =0;i<9;i++){
-			states[i]=1;
-		}
+		
+		
 		
 		try {
 			//skm = new Socket("localhost", 1239);
@@ -54,5 +52,7 @@ public class GameServer {
 	}
 		
 	}
-
+	public MiniServer getmini(){
+		return mini;
+	}
 }
