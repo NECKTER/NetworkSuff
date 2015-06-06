@@ -111,14 +111,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(true);
-					if (socketServer.getmini().getvalue(2) == "n") {
-						socketServer.getmini().togglevalue(2);
-					}
+//					if (socketServer.getmini().getvalue(2) == "n") {
+//						socketServer.getmini().togglevalue(2);
+//					}
 				} else {
 					setP2Up(true);
-					if (socketClient.getvalue(7) == "n") {
-						socketClient.togglevalue(7);
-					}
+//					if (socketClient.getvalue(7) == "n") {
+//						socketClient.togglevalue(7);
+//					}
 
 				}
 			}
@@ -133,14 +133,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(false);
-					if (socketServer.getmini().getvalue(2) == "y") {
-						socketServer.getmini().togglevalue(2);
-					}
+//					if (socketServer.getmini().getvalue(2) == "y") {
+//						socketServer.getmini().togglevalue(2);
+//					}
 				} else
 					setP2Up(false);
-				if (socketClient.getvalue(7) == "y") {
-					socketClient.togglevalue(7);
-				}
+//				if (socketClient.getvalue(7) == "y") {
+//					socketClient.togglevalue(7);
+//				}
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -153,14 +153,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(true);
-					if (socketServer.getmini().getvalue(3) == "n") {
-						socketServer.getmini().togglevalue(3);
-					}
+//					if (socketServer.getmini().getvalue(3) == "n") {
+//						socketServer.getmini().togglevalue(3);
+//					}
 				} else
 					setP2Down(true);
-				if (socketClient.getvalue(8) == "n") {
-					socketClient.togglevalue(8);
-				}
+//				if (socketClient.getvalue(8) == "n") {
+//					socketClient.togglevalue(8);
+//				}
 
 			}
 		});
@@ -174,14 +174,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(false);
-					if (socketServer.getmini().getvalue(3) == "y") {
-						socketServer.getmini().togglevalue(3);
-					}
+//					if (socketServer.getmini().getvalue(3) == "y") {
+//						socketServer.getmini().togglevalue(3);
+//					}
 				} else
 					setP2Down(false);
-				if (socketClient.getvalue(8) == "y") {
-					socketClient.togglevalue(8);
-				}
+//				if (socketClient.getvalue(8) == "y") {
+//					socketClient.togglevalue(8);
+//				}
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -194,14 +194,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(true);
-					if (socketServer.getmini().getvalue(1) == "n") {
-						socketServer.getmini().togglevalue(1);
-					}
+//					if (socketServer.getmini().getvalue(1) == "n") {
+//						socketServer.getmini().togglevalue(1);
+//					}
 				} else
 					setP2Right(true);
-				if (socketClient.getvalue(6) == "n") {
-					socketClient.togglevalue(6);
-				}
+//				if (socketClient.getvalue(6) == "n") {
+//					socketClient.togglevalue(6);
+//				}
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -214,14 +214,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(false);
-					if (socketServer.getmini().getvalue(1) == "y") {
-						socketServer.getmini().togglevalue(1);
-					}
+//					if (socketServer.getmini().getvalue(1) == "y") {
+//						socketServer.getmini().togglevalue(1);
+//					}
 				} else
 					setP2Right(false);
-				if (socketClient.getvalue(6) == "y") {
-					socketClient.togglevalue(6);
-				}
+//				if (socketClient.getvalue(6) == "y") {
+//					socketClient.togglevalue(6);
+//				}
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -234,14 +234,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(true);
-					if (socketServer.getmini().getvalue(0) == "n") {
-						socketServer.getmini().togglevalue(0);
-					}
+//					if (socketServer.getmini().getvalue(0) == "n") {
+//						socketServer.getmini().togglevalue(0);
+//					}
 				} else
 					setP2Left(true);
-				if (socketClient.getvalue(5) == "n") {
-					socketClient.togglevalue(5);
-				}
+//				if (socketClient.getvalue(5) == "n") {
+//					socketClient.togglevalue(5);
+//				}
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -254,14 +254,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(false);
-					if (socketServer.getmini().getvalue(0) == "n") {
-						socketServer.getmini().togglevalue(0);
-					}
+//					if (socketServer.getmini().getvalue(0) == "n") {
+//						socketServer.getmini().togglevalue(0);
+//					}
 				} else
 					setP2Left(false);
-				if (socketClient.getvalue(5) == "y") {
-					socketClient.togglevalue(5);
-				}
+//				if (socketClient.getvalue(5) == "y") {
+//					socketClient.togglevalue(5);
+//				}
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -274,14 +274,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(1);
-					if (socketServer.getmini().getvalue(4) == "n") {
-						socketServer.getmini().togglevalue(4);
-					}
+//					if (socketServer.getmini().getvalue(4) == "n") {
+//						socketServer.getmini().togglevalue(4);
+//					}
 				} else
 					setP2Shooting(1);
-				if (socketClient.getvalue(9) == "n") {
-					socketClient.togglevalue(9);
-				}
+//				if (socketClient.getvalue(9) == "n") {
+//					socketClient.togglevalue(9);
+//				}
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -294,14 +294,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(-1);
-					if (socketServer.getmini().getvalue(4) == "n") {
-						socketServer.getmini().togglevalue(4);
-					}
+//					if (socketServer.getmini().getvalue(4) == "n") {
+//						socketServer.getmini().togglevalue(4);
+//					}
 				} else
 					setP2Shooting(-1);
-				if (socketClient.getvalue(9) == "y") {
-					socketClient.togglevalue(9);
-				}
+//				if (socketClient.getvalue(9) == "y") {
+//					socketClient.togglevalue(9);
+//				}
 			}
 		});
 	}
@@ -345,7 +345,7 @@ public class Panel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// do stuff and then repaint
 		checkGameOver();
-		updateservervalues();
+//		updateservervalues();
 		movestuff();
 		repaint();
 	}
@@ -605,14 +605,17 @@ public class Panel extends JPanel implements ActionListener {
 		if (player2.getY() < 0) {
 			p2Up = false;
 		}
-		//if player hit player 2
+		//if players hit 
 		for (Objects objects : bullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false) {
-					objects.bounce();
-				} else {
-					garbage.add(objects);
+				if (objects.Hasbounced() == false || foreverbullet) {
+					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
+					else {
+						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+						else
+							garbage.add(objects);
+					}
 				}
 			}
 			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
@@ -623,14 +626,17 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		bullets.removeAll(garbage);
 		garbage.clear();
-		//if player 2 hit player
+
 		for (Objects objects : enemybullets) {
 			objects.move();
 			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false) {
-					objects.bounce();
-				} else {
-					garbage.add(objects);
+				if (objects.Hasbounced() == false || foreverbullet) {
+					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
+					else {
+						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+						else
+							garbage.add(objects);
+					}
 				}
 			}
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
@@ -641,6 +647,27 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
+		
+		for (Objects objects : bullets) {
+			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
+				garbage.add(objects);
+				sound.play("death");
+				p1WasHit = true;
+			}
+		}
+		bullets.removeAll(garbage);
+		garbage.clear();
+
+		for (Objects objects : enemybullets) {
+			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
+				garbage.add(objects);
+				sound.play("death");
+				p2WasHit = true;
+			}
+		}
+		enemybullets.removeAll(garbage);
+		garbage.clear();
+		
 		//bullet collision
 		if (!bullets.isEmpty() && !enemybullets.isEmpty() && enemybullets.get(0).getRect().contains(new Point(bullets.get(0).getX(), bullets.get(0).getY())) == true) {
 			enemybullets.remove(0);
@@ -652,7 +679,7 @@ public class Panel extends JPanel implements ActionListener {
 				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
 					map[objects.getY() / 10][objects.getX() / 10] = 0;
 					sound.play("break");
-					garbage.add(objects);
+					if (!foreverbullet) garbage.add(objects);
 				}
 			}
 		}
@@ -663,7 +690,7 @@ public class Panel extends JPanel implements ActionListener {
 				if (map[objects.getY() / 10][objects.getX() / 10] == 1) {
 					map[objects.getY() / 10][objects.getX() / 10] = 0;
 					sound.play("break");
-					garbage.add(objects);
+					if (!foreverbullet) garbage.add(objects);
 				}
 			}
 		}
@@ -712,7 +739,7 @@ public class Panel extends JPanel implements ActionListener {
 					bullets.add(new Objects(player.getX() + 55, player.getY() + 10, 5, 5, sheet.getBullet(), p1Bullet, 1));
 					break;
 				case 0:
-					bullets.add(new Objects(player.getX() + 55, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
+					bullets.add(new Objects(player.getX() + 59, player.getY() + 27, 5, 5, sheet.getBullet(), p1Bullet, 1));
 					break;
 				case -1:
 					bullets.add(new Objects(player.getX() + 55, player.getY() + 55, 5, 5, sheet.getBullet(), p1Bullet, 1));
