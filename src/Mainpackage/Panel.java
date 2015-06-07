@@ -22,6 +22,7 @@ public class Panel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Timer gameTimer;
+	private boolean first;
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
 	private final int pnum;
@@ -308,10 +309,13 @@ public class Panel extends JPanel implements ActionListener {
 
 	public void startGame() {
 		// setup game then start timer
-		if (pnum == 1) {
-			socketServer = new GameServer();
-		} else {
-			socketClient = new GameClient();
+		if (first) {
+			if (pnum == 1) {
+				socketServer = new GameServer();
+			} else {
+				socketClient = new GameClient();
+			}
+			first = false;
 		}
 		socketClient = new GameClient();
 		p1Health = 10;
@@ -647,7 +651,7 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
-		
+
 		for (Objects objects : bullets) {
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
@@ -667,7 +671,7 @@ public class Panel extends JPanel implements ActionListener {
 		}
 		enemybullets.removeAll(garbage);
 		garbage.clear();
-		
+
 		//bullet collision
 		if (!bullets.isEmpty() && !enemybullets.isEmpty() && enemybullets.get(0).getRect().contains(new Point(bullets.get(0).getX(), bullets.get(0).getY())) == true) {
 			enemybullets.remove(0);
