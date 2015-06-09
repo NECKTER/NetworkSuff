@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Frame extends JFrame implements ActionListener {
 	/**
@@ -45,6 +46,10 @@ public class Frame extends JFrame implements ActionListener {
 		JMenuItem map = new JMenuItem("Change Map");
 		map.addActionListener(this);
 		fileMenu.add(map);
+		
+		JMenuItem help = new JMenuItem("Help!");
+		help.addActionListener(this);
+		fileMenu.add(help);
 
 		JMenu speedMenu = new JMenu("Scroll Speed");
 		JMenuItem normal = new JMenuItem("Normal");
@@ -74,10 +79,23 @@ public class Frame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand() == "Start") panel.startGame();
-		if (e.getActionCommand() == "ForeverBullet") panel.toggleForeverbullet();
-		if (e.getActionCommand() == "Normal") panel.setScrollSpeed(333);
-		if (e.getActionCommand() == "Fast") panel.setScrollSpeed(10);
-		if (e.getActionCommand() == "None") panel.setScrollSpeed(Integer.MAX_VALUE);
-		if (e.getActionCommand() == "Change Map") panel.changeMap();
+		if (e.getActionCommand() == "ForeverBullet"){
+			panel.toggleForeverbullet();
+		}
+		if (e.getActionCommand() == "Normal"){
+			panel.setScrollSpeed(333);
+		}
+		if (e.getActionCommand() == "Fast"){
+			panel.setScrollSpeed(10);
+		}
+		if (e.getActionCommand() == "None"){
+			panel.setScrollSpeed(Integer.MAX_VALUE);
+		}
+		if (e.getActionCommand() == "Change Map"){
+			panel.changeMap();
+		}
+		if(e.getActionCommand() == "Help!"){
+			JOptionPane.showMessageDialog(null, "Move wiht the arrow keys\nSettings and map can only be changed between gamse\n");
+		}
 	}
 }

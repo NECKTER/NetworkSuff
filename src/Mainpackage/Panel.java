@@ -2,6 +2,7 @@ package Mainpackage;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -61,7 +62,7 @@ public class Panel extends JPanel implements ActionListener {
 	private GameClient socketClient;
 	private GameServer socketServer;
 	private boolean foreverbullet = false;
-	private int scrollSpeed;
+	private int scrollSpeed = Integer.MAX_VALUE;
 	private long lastScroll = System.currentTimeMillis();
 
 	public Panel(int i) {
@@ -323,6 +324,7 @@ public class Panel extends JPanel implements ActionListener {
 		player.move(200, 400);
 		player2.move(1300, 400);
 		gameTimer.start();
+		map = loadmap.getMap();
 
 		//makes the game client
 
@@ -334,6 +336,17 @@ public class Panel extends JPanel implements ActionListener {
 		//paint what is to be seen then the game has not yet started or has ended
 		g.drawImage(sheet.getBackround(), 0, 0, 1600, 900, null);
 		if (!gameTimer.isRunning()) {
+			g.setFont(new Font("Times new roman", Font.PLAIN, 100));
+			if (p1Health == 0) {
+				player2.draw(g, p2col, false);
+				g.setColor(p2col);
+				g.drawString("Winner", 650, 200);
+			}
+			if (p2Health == 0) {
+				g.setColor(p1col);
+				player.draw(g, p1col, false);
+				g.drawString("Winner", 650, 200);
+			}
 			return;
 		}
 		drawMap(g);
@@ -621,11 +634,13 @@ public class Panel extends JPanel implements ActionListener {
 							garbage.add(objects);
 					}
 				}
+//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
 			}
 			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
 				p2WasHit = true;
+				p2Health--;
 			}
 		}
 		bullets.removeAll(garbage);
@@ -642,11 +657,13 @@ public class Panel extends JPanel implements ActionListener {
 							garbage.add(objects);
 					}
 				}
+//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
 			}
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
 				p1WasHit = true;
+				p1Health--;
 			}
 		}
 		enemybullets.removeAll(garbage);
@@ -657,6 +674,7 @@ public class Panel extends JPanel implements ActionListener {
 				garbage.add(objects);
 				sound.play("death");
 				p1WasHit = true;
+				p1Health--;
 			}
 		}
 		bullets.removeAll(garbage);
@@ -667,6 +685,7 @@ public class Panel extends JPanel implements ActionListener {
 				garbage.add(objects);
 				sound.play("death");
 				p2WasHit = true;
+				p2Health--;
 			}
 		}
 		enemybullets.removeAll(garbage);
@@ -800,20 +819,26 @@ public class Panel extends JPanel implements ActionListener {
 	}
 
 	public void toggleForeverbullet() {
-		if (foreverbullet) {
-			foreverbullet = false;
-		} else {
-			foreverbullet = true;
+		if (!gameTimer.isRunning()) {
+			if (foreverbullet) {
+				foreverbullet = false;
+			} else {
+				foreverbullet = true;
+			}
 		}
 	}
 
 	public void setScrollSpeed(int scrollSpeed) {
-		this.scrollSpeed = scrollSpeed;
+		if (!gameTimer.isRunning()) {
+			this.scrollSpeed = scrollSpeed;
+		}
 	}
 
 	public void changeMap() {
-		loadmap.changeMap();
-		map = loadmap.getMap();
+		if (!gameTimer.isRunning()) {
+			loadmap.changeMap();
+			map = loadmap.getMap();
+		}
 	}
 
 	private void scrollMap() {
