@@ -333,18 +333,26 @@ public class Panel extends JPanel implements ActionListener {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		g.setFont(new Font("Times new roman", Font.PLAIN, 100));
 		//paint what is to be seen then the game has not yet started or has ended
 		g.drawImage(sheet.getBackround(), 0, 0, 1600, 900, null);
+		g.drawString("" + (10 - p2Health), 200, 75);
+		g.drawString("" + (10 - p1Health), 1300, 75);
 		if (!gameTimer.isRunning()) {
-			g.setFont(new Font("Times new roman", Font.PLAIN, 100));
 			if (p1Health == 0) {
+				player.drawDeath(g, p1col);
+				player2.flipAll();
 				player2.draw(g, p2col, false);
+				player2.flipAll();
 				g.setColor(p2col);
 				g.drawString("Winner", 650, 200);
 			}
 			if (p2Health == 0) {
 				g.setColor(p1col);
 				player.draw(g, p1col, false);
+				player2.flipAll();
+				player2.drawDeath(g, p2col);
+				player2.flipAll();
 				g.drawString("Winner", 650, 200);
 			}
 			return;
