@@ -76,7 +76,6 @@ public class Panel extends JPanel implements ActionListener {
 		sound.mapFile("death", "DEATH.wav");
 		pnum = i;
 		loadmap = new LoadMap("wall.png");
-		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
@@ -319,12 +318,16 @@ public class Panel extends JPanel implements ActionListener {
 			first = false;
 		}
 		socketClient = new GameClient();
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				map[i][j] = loadmap.getMap()[i][j];
+			}
+		}
 		p1Health = 10;
 		p2Health = 10;
 		player.move(200, 400);
 		player2.move(1300, 400);
 		gameTimer.start();
-		map = loadmap.getMap();
 
 		//makes the game client
 
@@ -348,11 +351,11 @@ public class Panel extends JPanel implements ActionListener {
 				g.drawString("Winner", 650, 200);
 			}
 			if (p2Health == 0) {
-				g.setColor(p1col);
 				player.draw(g, p1col, false);
 				player2.flipAll();
 				player2.drawDeath(g, p2col);
 				player2.flipAll();
+				g.setColor(p1col);
 				g.drawString("Winner", 650, 200);
 			}
 			return;
