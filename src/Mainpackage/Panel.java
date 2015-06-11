@@ -625,17 +625,12 @@ public class Panel extends JPanel implements ActionListener {
 		//if players hit 
 		for (Objects objects : bullets) {
 			objects.move();
-			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false || foreverbullet) {
-					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
-					else {
-						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
-						else
-							garbage.add(objects);
-					}
-				}
-//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
+			if (objects.getY() > this.getHeight() || objects.getY() < 0) {
+				if (objects.Hasbounced() == false || foreverbullet) objects.bounce();
 			}
+			if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+			else
+				if (objects.getX() > this.getWidth() || objects.getX() < 0) garbage.add(objects);
 			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
@@ -648,17 +643,12 @@ public class Panel extends JPanel implements ActionListener {
 
 		for (Objects objects : enemybullets) {
 			objects.move();
-			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false || foreverbullet) {
-					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
-					else {
-						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
-						else
-							garbage.add(objects);
-					}
-				}
-//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
+			if (objects.getY() > this.getHeight() || objects.getY() < 0) {
+				if (objects.Hasbounced() == false || foreverbullet) objects.bounce();
 			}
+			if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+			else
+				if (objects.getX() > this.getWidth() || objects.getX() < 0) garbage.add(objects);
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
