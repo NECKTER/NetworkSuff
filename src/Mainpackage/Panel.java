@@ -143,10 +143,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(2) == "y") {
 						socketp1client.togglevalue(2);
 					}
-				} else
+				} else {
 					setP2Up(false);
-				if (socketClient.getvalue(7) == "y") {
-					socketClient.togglevalue(7);
+					if (socketClient.getvalue(7) == "y") {
+						socketClient.togglevalue(7);
+					}
 				}
 			}
 		});
@@ -163,12 +164,12 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(3) == "n") {
 						socketp1client.togglevalue(3);
 					}
-				} else
+				} else {
 					setP2Down(true);
-				if (socketClient.getvalue(8) == "n") {
-					socketClient.togglevalue(8);
+					if (socketClient.getvalue(8) == "n") {
+						socketClient.togglevalue(8);
+					}
 				}
-
 			}
 		});
 		this.getActionMap().put("down off", new AbstractAction() {
@@ -184,10 +185,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(3) == "y") {
 						socketp1client.togglevalue(3);
 					}
-				} else
+				} else {
 					setP2Down(false);
-				if (socketClient.getvalue(8) == "y") {
-					socketClient.togglevalue(8);
+					if (socketClient.getvalue(8) == "y") {
+						socketClient.togglevalue(8);
+					}
 				}
 			}
 		});
@@ -204,10 +206,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(1) == "n") {
 						socketp1client.togglevalue(1);
 					}
-				} else
+				} else {
 					setP2Right(true);
-				if (socketClient.getvalue(6) == "n") {
-					socketClient.togglevalue(6);
+					if (socketClient.getvalue(6) == "n") {
+						socketClient.togglevalue(6);
+					}
 				}
 			}
 		});
@@ -224,10 +227,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(1) == "y") {
 						socketp1client.togglevalue(1);
 					}
-				} else
+				} else {
 					setP2Right(false);
-				if (socketClient.getvalue(6) == "y") {
-					socketClient.togglevalue(6);
+					if (socketClient.getvalue(6) == "y") {
+						socketClient.togglevalue(6);
+					}
 				}
 			}
 		});
@@ -244,10 +248,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(0) == "n") {
 						socketp1client.togglevalue(0);
 					}
-				} else
+				} else {
 					setP2Left(true);
-				if (socketClient.getvalue(5) == "n") {
-					socketClient.togglevalue(5);
+					if (socketClient.getvalue(5) == "n") {
+						socketClient.togglevalue(5);
+					}
 				}
 			}
 		});
@@ -264,10 +269,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(0) == "n") {
 						socketp1client.togglevalue(0);
 					}
-				} else
+				} else {
 					setP2Left(false);
-				if (socketClient.getvalue(5) == "y") {
-					socketClient.togglevalue(5);
+					if (socketClient.getvalue(5) == "y") {
+						socketClient.togglevalue(5);
+					}
 				}
 			}
 		});
@@ -284,10 +290,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(4) == "n") {
 						socketp1client.togglevalue(4);
 					}
-				} else
+				} else {
 					setP2Shooting(1);
-				if (socketClient.getvalue(9) == "n") {
-					socketClient.togglevalue(9);
+					if (socketClient.getvalue(9) == "n") {
+						socketClient.togglevalue(9);
+					}
 				}
 			}
 		});
@@ -304,10 +311,11 @@ public class Panel extends JPanel implements ActionListener {
 					if (socketp1client.getvalue(4) == "n") {
 						socketp1client.togglevalue(4);
 					}
-				} else
+				} else {
 					setP2Shooting(-1);
-				if (socketClient.getvalue(9) == "y") {
-					socketClient.togglevalue(9);
+					if (socketClient.getvalue(9) == "y") {
+						socketClient.togglevalue(9);
+					}
 				}
 			}
 		});
