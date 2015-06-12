@@ -426,6 +426,9 @@ public class Panel extends JPanel implements ActionListener {
 			}
 			if (socketServer.getvalue(9).trim().equals("y")) {
 				p2Shooting = 1;
+			}
+			if (socketServer.getvalue(9).trim().equals("m")) {
+				p2Shooting = 0;
 			} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 				//p2Shooting=;
 				p2Shooting = -1;
@@ -454,6 +457,9 @@ public class Panel extends JPanel implements ActionListener {
 				}
 				if (socketClient.getvalue(4).trim().equals("y")) {
 					p1Shooting = 1;
+				}
+				if (socketClient.getvalue(4).trim().equals("m")) {
+					p1Shooting = 0;
 				} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 					//p2Shooting=;
 					p1Shooting = -1;
