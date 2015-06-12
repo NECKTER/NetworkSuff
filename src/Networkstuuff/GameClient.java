@@ -23,7 +23,7 @@ public class GameClient extends Thread {
 	private Socket skj;
 	private int m = 0;
 
-	static String info = "nynnynnynn";
+	static String info = "nnnnnnnnnn";
 
 	public static String[] clientsvalues = new String[10];
 	Panel l;
@@ -46,8 +46,6 @@ public class GameClient extends Thread {
 
 	public GameClient() {
 
-	
-
 		//playernumber=j;
 
 	}
@@ -59,14 +57,11 @@ public class GameClient extends Thread {
 			infoOut = "";
 			try {
 
-				
 				srv = new ServerSocket(1233);
 				skj = srv.accept();
-				skt = new Socket("10.0.1.39", 1240);
-				
+				skt = new Socket("25.21.58.167", 1240);
 
-
-			//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
+				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
 
 				// skm = new Socket("10.0.1.39", 1236);
 
