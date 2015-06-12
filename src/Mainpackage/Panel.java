@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -71,13 +72,10 @@ public class Panel extends JPanel implements ActionListener {
 		Objects.panel = this;
 		if (pnum == 1) {
 			System.out.println("pie");
-			socketServer = new GameServer();
-
+			socketServer = new GameServer(JOptionPane.showInputDialog("Ip of the other guy"));
 			socketServer.start();
-
 		} else {
-
-			socketClient = new GameClient();
+			socketClient = new GameClient(JOptionPane.showInputDialog("Ip of the other guy"));
 			System.out.println("Putin is Garbage");
 			socketClient.start();
 			System.out.println("Putin isnt Garbage");

@@ -11,6 +11,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.util.jar.JarInputStream;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Mainpackage.Panel;
 
@@ -22,17 +26,18 @@ public class GameClient extends Thread {
 	private Socket skt;
 	private Socket skj;
 	private int m = 0;
-	String info = "nnnnnnnnnn";
-
-	
+	String info = "nnnnmnnnnm";
+	private String Ip;
 
 	private static int playernumber = 2;
 	private static ServerSocket srv = null;
 
 	private static Socket skm;
-	public void setvalue(int m,char k){
-		info=info.substring(0, m)+k+info.substring(m+1);
+
+	public void setvalue(int m, char k) {
+		info = info.substring(0, m) + k + info.substring(m + 1);
 	}
+
 	public void togglevalue(int where) {
 		if (info.substring(where, where + 1).equals("y")) {
 			info = info.substring(0, where) + "n" + info.substring(where + 1);
@@ -42,14 +47,15 @@ public class GameClient extends Thread {
 	}
 
 	public String getvalue(int l) {
-		return (info.substring(l, l+ 1));
+		return (info.substring(l, l + 1));
 	}
 
-	public GameClient() {
+	public GameClient(String s) {
+		Ip = s;
 		try {
-			
+
 			srv = new ServerSocket(1233);
-			
+
 			System.out.println("MAKES NEW SERVER socket");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -65,20 +71,17 @@ public class GameClient extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-	
-			
+
 		while (true) {
 			infoOut = "";
 			System.out.println("Starts inside while");
 			try {
 
 				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
-				 skm = new Socket("10.140.106.107", 1236);
-			
+				skm = new Socket(Ip, 1236);
+
 				System.out.println("it accepted");
-				
-				
-				
+
 				System.out.println("it accepted");
 				PrintWriter pw = new PrintWriter(skm.getOutputStream(), true);//, true);
 
@@ -93,7 +96,7 @@ public class GameClient extends Thread {
 				}
 
 				pw.flush();
-				skj=srv.accept();				
+				skj = srv.accept();
 				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
 				System.out.print("Message sent");
 
@@ -109,8 +112,8 @@ public class GameClient extends Thread {
 					System.out.println("data is NULL");
 				}
 
-				info = data.substring(0, 5)+info.substring(5, 10);
-       
+				info = data.substring(0, 5) + info.substring(5, 10);
+
 				System.out.println("Unpackaged");
 
 				//  System.out.println(info);
