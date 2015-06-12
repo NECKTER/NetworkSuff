@@ -49,7 +49,7 @@ public class GameServer extends Thread {
 
 	public void run() {
 		//Read input and process here
-
+while(true){
 		int howmany=0;
 		
 			System.out.println("its trying");
@@ -60,7 +60,7 @@ public class GameServer extends Thread {
 				swag = new ServerSocket(1340);
 				System.out.println("Oh hi Jessy");
 				this.skl = swag.accept();
-				skm = new Socket("localhost", 1233);
+				skm = new Socket("10.0.1.39", 1233);
 				
 				
 				
@@ -115,6 +115,7 @@ public class GameServer extends Thread {
 System.out.println("it broke");
 		}
 		//implement your methods here
+	}
 	}
 }
 	

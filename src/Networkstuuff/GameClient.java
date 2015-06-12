@@ -58,10 +58,11 @@ public class GameClient extends Thread {
 			try {
 
 
-				skt = new Socket("localhost", 1240);
-				srv = new ServerSocket(1233);
-				skj = srv.accept();
 				
+				srv = new ServerSocket(1233);
+				
+				skj = srv.accept();
+				skt = new Socket("localhost", 1240);
 				
 
 
