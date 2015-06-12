@@ -46,8 +46,6 @@ public class GameClient extends Thread {
 
 	public GameClient() {
 
-	
-
 		//playernumber=j;
 
 	}
@@ -59,14 +57,20 @@ public class GameClient extends Thread {
 			infoOut = "";
 			try {
 
+<<<<<<< HEAD
 				skt = new Socket("localhost", 1240);
 				srv = new ServerSocket(1233);
 				skj = srv.accept();
 				
 				
 
+=======
+				srv = new ServerSocket(1233);
+				skj = srv.accept();
+				skt = new Socket("25.21.58.167", 1240);
+>>>>>>> origin/master
 
-			//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
+				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
 
 				// skm = new Socket("10.0.1.39", 1236);
 

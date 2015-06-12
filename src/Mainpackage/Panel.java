@@ -75,9 +75,9 @@ public class Panel extends JPanel implements ActionListener {
 			socketServer = new GameServer();
 			System.out.println("pie");
 			socketServer.start();
-			
+
 		} else {
-			
+
 			socketClient = new GameClient();
 			System.out.println("Putin is Garbage");
 			socketClient.start();
@@ -737,8 +737,14 @@ public class Panel extends JPanel implements ActionListener {
 		for (Point p : player.getPixels()) {
 			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() + 1) / 10)] == 1) p1Right = false;
 			if ((int) ((p.getX() - 1) / 10) > 0 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() - 1) / 10)] == 1) p1Left = false;
-			if ((int) ((p.getY() - 1) / 10) > 0 && map[(int) ((p.getY() - 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Up = false;
-			if ((int) ((p.getY() + 1) / 10) < 90 && map[(int) ((p.getY() + 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Down = false;
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY() - 1) / 10) > 0 && map[(int) ((p.getY() - 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Up = false;
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY() + 1) / 10) < 90 && map[(int) ((p.getY() + 1) / 10)][(int) ((p.getX()) / 10)] == 1) p1Down = false;
+		}
+		for (Point p : player2.getPixels()) {
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() + 1) / 10)] == 1) p2Right = false;
+			if ((int) ((p.getX() - 1) / 10) > 0 && (int) ((p.getY()) / 10) < 90 && map[(int) ((p.getY()) / 10)][(int) ((p.getX() - 1) / 10)] == 1) p2Left = false;
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) (p.getY() - 1) / 10 > 0 && map[(int) ((p.getY() - 1) / 10)][(int) ((p.getX()) / 10)] == 1) p2Up = false;
+			if ((int) ((p.getX() + 1) / 10) < 160 && (int) ((p.getY() + 1) / 10) < 90 && map[(int) ((p.getY() + 1) / 10)][(int) ((p.getX()) / 10)] == 1) p2Down = false;
 		}
 	}
 
