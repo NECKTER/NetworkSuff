@@ -71,14 +71,12 @@ public class Panel extends JPanel implements ActionListener {
 		this.setBackground(Color.WHITE);
 		Objects.panel = this;
 		if (pnum == 1) {
-			System.out.println("pie");
+			//trey 10.140.112.99
 			socketServer = new GameServer(JOptionPane.showInputDialog("Ip of the other guy"));
 			socketServer.start();
 		} else {
 			socketClient = new GameClient(JOptionPane.showInputDialog("Ip of the other guy"));
-			System.out.println("Putin is Garbage");
 			socketClient.start();
-			System.out.println("Putin isnt Garbage");
 		}
 		sound.mapFile("shoot", "SHOOT.wav");
 		//block break and step sound

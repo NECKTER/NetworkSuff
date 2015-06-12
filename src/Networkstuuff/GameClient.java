@@ -56,7 +56,6 @@ public class GameClient extends Thread {
 
 			srv = new ServerSocket(1233);
 
-			System.out.println("MAKES NEW SERVER socket");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,21 +73,16 @@ public class GameClient extends Thread {
 
 		while (true) {
 			infoOut = "";
-			System.out.println("Starts inside while");
 			try {
 
 				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
 				skm = new Socket(Ip, 1236);
 
-				System.out.println("it accepted");
-
-				System.out.println("it accepted");
 				PrintWriter pw = new PrintWriter(skm.getOutputStream(), true);//, true);
 
 				if (m < 1) {
 
 					pw.println(info);
-					System.out.println(info);
 					m++;
 				} else {
 					pw.println(info);
@@ -98,26 +92,19 @@ public class GameClient extends Thread {
 				pw.flush();
 				skj = srv.accept();
 				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
-				System.out.print("Message sent");
 
 				while ((inputString = in.readLine()) != null) {
-					System.out.println("LOOP");
-					System.out.println(inputString);
 					data = inputString;
 				}
-				System.out.println("Recieved data");
 				// Read one line and output it
-				System.out.println(data);
 				if (data == null) {
 					System.out.println("data is NULL");
 				}
 
 				info = data.substring(0, 5) + info.substring(5, 10);
 
-				System.out.println("Unpackaged");
 
 				//  System.out.println(info);
-				System.out.println("Repackedged");
 
 				in.close();
 				pw.close();

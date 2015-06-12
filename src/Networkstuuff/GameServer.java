@@ -42,7 +42,6 @@ public class GameServer extends Thread {
 		try {
 			swag = new ServerSocket(1236);
 
-			System.out.println("Starts server server");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,15 +65,11 @@ public class GameServer extends Thread {
 	public void run() {
 
 		//Read input and process hereswag = new ServerSocket(1340);
-		System.out.println("Oh hi Jessy");
 
 //Read input and process here
 		while (true) {
 			int howmany = 0;
-			System.out.println("Starts the thread");
-			System.out.println("its trying");
 			try {
-				System.out.println("its trying inside loop");
 				outData = "";
 				data = "";
 				skl = swag.accept();
@@ -92,24 +87,15 @@ public class GameServer extends Thread {
 
 				int count = 0;
 				while ((inputString = in.readLine()) != null) {
-					System.out.println("LOOP");
-					System.out.println(inputString);
 					data += inputString;
 					if (inputString != null) {
 						break;
 					}
 
 				}
-				System.out.println("It recieved data");
-				System.out.println(data);
 
 				originaldata = originaldata.substring(0, 5) + data.substring(5, 10);
-
-				System.out.println("Saved states");
-
 				outData = originaldata;
-				System.out.println(outData);
-				System.out.println("Repackaged");
 				out.println(outData);
 				out.flush();
 
