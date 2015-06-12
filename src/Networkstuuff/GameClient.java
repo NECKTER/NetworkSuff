@@ -57,15 +57,10 @@ public class GameClient extends Thread {
 			infoOut = "";
 			try {
 
-
-				
 				srv = new ServerSocket(1233);
-				
+
 				skj = srv.accept();
 				skt = new Socket("localhost", 1240);
-				
-
-
 
 				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
 
