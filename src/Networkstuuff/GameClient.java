@@ -30,7 +30,9 @@ public class GameClient extends Thread {
 	private static ServerSocket srv = null;
 
 	private static Socket skm;
-
+	public void setvalue(int m,char k){
+		info=info.substring(0, m)+k+info.substring(m+1);
+	}
 	public void togglevalue(int where) {
 		if (info.substring(where, where + 1).equals("y")) {
 			info = info.substring(0, where) + "n" + info.substring(where + 1);

@@ -29,7 +29,9 @@ public class GameServer extends Thread {
 	private Socket skq;
 
 	private BufferedReader in;
-
+	public void setvalue(int m,char k){
+		originaldata=originaldata.substring(0, m)+k+originaldata.substring(m+1);
+	}
 	public GameServer() {
 		try {
 			swag = new ServerSocket(1236);
