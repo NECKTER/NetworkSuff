@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -14,39 +15,58 @@ import Mainpackage.Panel;
 
 public class GameServer extends Thread {
 	private Socket skl = null;
-	String [] states=new String [10];
-	String data="";
+	String[] states = new String[10];
+	String data = "";
 	Boolean hj;
 	Socket skm;
-	ServerSocket srvr=null;
-	String originaldata="nnnnnnnnyn";
-	String outData="";
-	String inputString=null;
+	ServerSocket srvr = null;
+	String originaldata = "nnnnnnnnyn";
+	String outData = "";
+	String inputString = null;
 	ServerSocket swag;
 
 	private Socket skq;
-	
+
 	private BufferedReader in;
+
 	public GameServer() {
+<<<<<<< HEAD
 				System.out.println("Oh hi Jswag");
 		
 	
+=======
+		try {
+
+			swag = new ServerSocket(1340);
+			System.out.println("Oh hi Jessy");
+			this.skl = swag.accept();
+			System.out.println("Oh hi Jswag");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+
+>>>>>>> origin/master
 		// for(int i=0;i<10;)
-		
+
 	}
-	public void togglevalue(int where){
-		if(originaldata.substring(where, where+1)=="y"){
-			originaldata=originaldata.substring(0, where)+"n"+originaldata.substring(where+1);
+
+	public void togglevalue(int where) {
+		if (originaldata.substring(where, where + 1) == "y") {
+			originaldata = originaldata.substring(0, where) + "n" + originaldata.substring(where + 1);
+		} else {
+			originaldata = originaldata.substring(0, where) + "y" + originaldata.substring(where + 1);
 		}
-		else{
-			originaldata=originaldata.substring(0, where)+"y"+originaldata.substring(where+1);
-		}
 	}
-	public String getvalue(int g){
-	return originaldata.substring(g, g+1);
+
+	public String getvalue(int g) {
+		return originaldata.substring(g, g + 1);
 	}
-	public void run(){
+
+	public void run() {
 		//Read input and process here
+<<<<<<< HEAD
 		int howmany=0;
 		
 			
@@ -85,33 +105,59 @@ public class GameServer extends Thread {
 					if(inputString!=null){
 						break;
 					}
+=======
+		int howmany = 0;
+
+		Socket skm;
+		try {
+			outData = "";
+			data = "";
+
+			skm = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1233);
+
+			// TODO Auto-generated catch block
+
+			//  SocketAddress up=	srvr.getLocalSocketAddress();
+			//System.out.println(up);
+			//System.out.println("It connected");
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(skl.getInputStream()));
+
+			PrintWriter out = new PrintWriter(skm.getOutputStream(), true);
+
+			int count = 0;
+			while ((inputString = in.readLine()) != null) {
+				System.out.println("LOOP");
+				System.out.println(inputString);
+				data += inputString;
+				if (inputString != null) {
+					break;
+>>>>>>> origin/master
 				}
-				System.out.println("It recieved data");
-				System.out.println(data);
-				
-					
-				originaldata=data.substring(0,5)+originaldata.substring(5, 10);
-				
-				System.out.println("Saved states");
-
-				
-				outData=originaldata;
-				System.out.println(outData);
-				System.out.println("Repackaged");
-				out.println(outData);
-				out.flush();
-				
-				in.close();
-				out.close();
-				skl.close();
-				skm.close();
-				//srvr.close();
 			}
-	
-			
-			catch(IOException r){
+			System.out.println("It recieved data");
+			System.out.println(data);
 
-			}
-			//implement your methods here
+			originaldata = data.substring(0, 5) + originaldata.substring(5, 10);
+
+			System.out.println("Saved states");
+
+			outData = originaldata;
+			System.out.println(outData);
+			System.out.println("Repackaged");
+			out.println(outData);
+			out.flush();
+
+			in.close();
+			out.close();
+			skl.close();
+			skm.close();
+			//srvr.close();
 		}
+
+		catch (IOException r) {
+
+		}
+		//implement your methods here
+	}
 }

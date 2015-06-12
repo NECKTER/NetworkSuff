@@ -33,11 +33,10 @@ public class GameClient extends Thread {
 	private static Socket skm;
 
 	public void togglevalue(int where) {
-		if(info.substring(where, where+1)=="y"){
-			info=info.substring(0, where)+"n"+info.substring(where+1);
-		}
-		else{
-			info=info.substring(0, where)+"y"+info.substring(where+1);
+		if (info.substring(where, where + 1) == "y") {
+			info = info.substring(0, where) + "n" + info.substring(where + 1);
+		} else {
+			info = info.substring(0, where) + "y" + info.substring(where + 1);
 		}
 	}
 
@@ -46,7 +45,18 @@ public class GameClient extends Thread {
 	}
 
 	public GameClient() {
+<<<<<<< HEAD
 		
+=======
+		try {
+			srv = new ServerSocket(1233);
+			skj = srv.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+>>>>>>> origin/master
 		//playernumber=j;
 
 	}
@@ -57,24 +67,29 @@ public class GameClient extends Thread {
 		while (true) {
 			infoOut = "";
 			try {
+<<<<<<< HEAD
 				
 				srv = new ServerSocket(1233);
 				skj = srv.accept();
 				skt = new Socket("10.0.1.39", 1240);
 				
+=======
+
+				skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
+>>>>>>> origin/master
 				// skm = new Socket("10.0.1.39", 1236);
-				
+
 				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
 				PrintWriter pw = new PrintWriter(skt.getOutputStream(), true);//, true);
 
 				if (m < 1) {
-					
-						pw.println( info);
-					
+
+					pw.println(info);
+
 					System.out.println(info);
 					m++;
 				} else {
-						pw.println(info);
+					pw.println(info);
 
 				}
 
@@ -94,13 +109,10 @@ public class GameClient extends Thread {
 					System.out.println("data is NULL");
 				}
 
-				
-					info = info.substring(0, 5) + data.substring(5, 10);
-				
-				
+				info = info.substring(0, 5) + data.substring(5, 10);
+
 				System.out.println("Unpackaged");
 
-				
 				//  System.out.println(info);
 				System.out.println("Repackedged");
 
