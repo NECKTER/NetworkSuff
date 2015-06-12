@@ -23,7 +23,6 @@ public class Panel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Timer gameTimer;
-	private boolean first;
 	private ClipPlayer sound = new ClipPlayer();
 	private SpriteSheet sheet = new SpriteSheet();
 	private final int pnum;
@@ -59,40 +58,29 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
-<<<<<<< Updated upstream
-	private GameClient socketClient;
-	private GameServer socketServer;
 	private boolean foreverbullet = false;
 	private int scrollSpeed = Integer.MAX_VALUE;
 	private long lastScroll = System.currentTimeMillis();
-=======
-	private GameClient socketClient=null;
-	private GameServer socketServer=null;
-	private GameClient socketp1client=null;
->>>>>>> Stashed changes
+	private GameClient socketClient = null;
+	private GameServer socketServer = null;
+	private GameClient socketp1client = null;
 
 	public Panel(int i) {
+		pnum = i;
 		this.setPreferredSize(new Dimension(1600, 900));
 		this.setBackground(Color.WHITE);
 		Objects.panel = this;
-		gameTimer = new Timer(1, this);
+		if (pnum == 1) {
+			socketServer = new GameServer();
+			socketp1client = new GameClient(1);
+		} else {
+			socketClient = new GameClient(2);
+		}
 		sound.mapFile("shoot", "SHOOT.wav");
 		//block break and step sound
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
-<<<<<<< Updated upstream
-		pnum = i;
 		loadmap = new LoadMap("wall.png");
-<<<<<<< HEAD
-=======
-
-		pnum = i;
-		loadmap = new LoadMap("wall.png");
-
->>>>>>> Stashed changes
-		map = loadmap.getMap();
-=======
->>>>>>> origin/master
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
@@ -104,6 +92,7 @@ public class Panel extends JPanel implements ActionListener {
 		player2.addShootUp(sheet.getPlayerShootUp());
 		player2.addShootDonw(sheet.getPlayerShootDown());
 		player2.addDeath(sheet.getPlayerDeath());
+		gameTimer = new Timer(1, this);
 	}
 
 	private void setUpBindings() {
@@ -129,14 +118,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(true);
-//					if (socketServer.getmini().getvalue(2) == "n") {
-//						socketServer.getmini().togglevalue(2);
-//					}
+					if (socketp1client.getvalue(2) == "n") {
+						socketp1client.togglevalue(2);
+					}
 				} else {
 					setP2Up(true);
-//					if (socketClient.getvalue(7) == "n") {
-//						socketClient.togglevalue(7);
-//					}
+					if (socketClient.getvalue(7) == "n") {
+						socketClient.togglevalue(7);
+					}
 
 				}
 			}
@@ -151,14 +140,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(false);
-//					if (socketServer.getmini().getvalue(2) == "y") {
-//						socketServer.getmini().togglevalue(2);
-//					}
+					if (socketp1client.getvalue(2) == "y") {
+						socketp1client.togglevalue(2);
+					}
 				} else
 					setP2Up(false);
-//				if (socketClient.getvalue(7) == "y") {
-//					socketClient.togglevalue(7);
-//				}
+				if (socketClient.getvalue(7) == "y") {
+					socketClient.togglevalue(7);
+				}
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
@@ -171,14 +160,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(true);
-//					if (socketServer.getmini().getvalue(3) == "n") {
-//						socketServer.getmini().togglevalue(3);
-//					}
+					if (socketp1client.getvalue(3) == "n") {
+						socketp1client.togglevalue(3);
+					}
 				} else
 					setP2Down(true);
-//				if (socketClient.getvalue(8) == "n") {
-//					socketClient.togglevalue(8);
-//				}
+				if (socketClient.getvalue(8) == "n") {
+					socketClient.togglevalue(8);
+				}
 
 			}
 		});
@@ -192,14 +181,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(false);
-//					if (socketServer.getmini().getvalue(3) == "y") {
-//						socketServer.getmini().togglevalue(3);
-//					}
+					if (socketp1client.getvalue(3) == "y") {
+						socketp1client.togglevalue(3);
+					}
 				} else
 					setP2Down(false);
-//				if (socketClient.getvalue(8) == "y") {
-//					socketClient.togglevalue(8);
-//				}
+				if (socketClient.getvalue(8) == "y") {
+					socketClient.togglevalue(8);
+				}
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
@@ -212,14 +201,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(true);
-//					if (socketServer.getmini().getvalue(1) == "n") {
-//						socketServer.getmini().togglevalue(1);
-//					}
+					if (socketp1client.getvalue(1) == "n") {
+						socketp1client.togglevalue(1);
+					}
 				} else
 					setP2Right(true);
-//				if (socketClient.getvalue(6) == "n") {
-//					socketClient.togglevalue(6);
-//				}
+				if (socketClient.getvalue(6) == "n") {
+					socketClient.togglevalue(6);
+				}
 			}
 		});
 		this.getActionMap().put("right off", new AbstractAction() {
@@ -232,14 +221,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(false);
-//					if (socketServer.getmini().getvalue(1) == "y") {
-//						socketServer.getmini().togglevalue(1);
-//					}
+					if (socketp1client.getvalue(1) == "y") {
+						socketp1client.togglevalue(1);
+					}
 				} else
 					setP2Right(false);
-//				if (socketClient.getvalue(6) == "y") {
-//					socketClient.togglevalue(6);
-//				}
+				if (socketClient.getvalue(6) == "y") {
+					socketClient.togglevalue(6);
+				}
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
@@ -252,14 +241,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(true);
-//					if (socketServer.getmini().getvalue(0) == "n") {
-//						socketServer.getmini().togglevalue(0);
-//					}
+					if (socketp1client.getvalue(0) == "n") {
+						socketp1client.togglevalue(0);
+					}
 				} else
 					setP2Left(true);
-//				if (socketClient.getvalue(5) == "n") {
-//					socketClient.togglevalue(5);
-//				}
+				if (socketClient.getvalue(5) == "n") {
+					socketClient.togglevalue(5);
+				}
 			}
 		});
 		this.getActionMap().put("left off", new AbstractAction() {
@@ -272,14 +261,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(false);
-//					if (socketServer.getmini().getvalue(0) == "n") {
-//						socketServer.getmini().togglevalue(0);
-//					}
+					if (socketp1client.getvalue(0) == "n") {
+						socketp1client.togglevalue(0);
+					}
 				} else
 					setP2Left(false);
-//				if (socketClient.getvalue(5) == "y") {
-//					socketClient.togglevalue(5);
-//				}
+				if (socketClient.getvalue(5) == "y") {
+					socketClient.togglevalue(5);
+				}
 			}
 		});
 		this.getActionMap().put("shoot", new AbstractAction() {
@@ -292,14 +281,14 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(1);
-//					if (socketServer.getmini().getvalue(4) == "n") {
-//						socketServer.getmini().togglevalue(4);
-//					}
+					if (socketp1client.getvalue(4) == "n") {
+						socketp1client.togglevalue(4);
+					}
 				} else
 					setP2Shooting(1);
-//				if (socketClient.getvalue(9) == "n") {
-//					socketClient.togglevalue(9);
-//				}
+				if (socketClient.getvalue(9) == "n") {
+					socketClient.togglevalue(9);
+				}
 			}
 		});
 		this.getActionMap().put("shootOff", new AbstractAction() {
@@ -312,60 +301,30 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(-1);
-//					if (socketServer.getmini().getvalue(4) == "n") {
-//						socketServer.getmini().togglevalue(4);
-//					}
+					if (socketp1client.getvalue(4) == "n") {
+						socketp1client.togglevalue(4);
+					}
 				} else
 					setP2Shooting(-1);
-//				if (socketClient.getvalue(9) == "y") {
-//					socketClient.togglevalue(9);
-//				}
+				if (socketClient.getvalue(9) == "y") {
+					socketClient.togglevalue(9);
+				}
 			}
 		});
 	}
 
 	public void startGame() {
 		// setup game then start timer
-<<<<<<< Updated upstream
-		if (first) {
-			if (pnum == 1) {
-				socketServer = new GameServer();
-			} else {
-				socketClient = new GameClient();
-			}
-			first = false;
-		}
-		socketClient = new GameClient();
-<<<<<<< HEAD
-=======
 
-		
-		if(pnum==1){
-		socketServer=new GameServer();
-	 socketp1client = new GameClient(1);
-		
-		}
-		else{
-		socketClient = new GameClient(2);
-		
-		}
-
->>>>>>> Stashed changes
-=======
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				map[i][j] = loadmap.getMap()[i][j];
 			}
 		}
->>>>>>> origin/master
 		p1Health = 10;
 		p2Health = 10;
 		player.move(200, 400);
 		player2.move(1300, 400);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 		gameTimer.start();
 
 		//makes the game client
@@ -412,10 +371,6 @@ public class Panel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// do stuff and then repaint
 		checkGameOver();
-<<<<<<< Updated upstream
-//		updateservervalues();
-=======
->>>>>>> Stashed changes
 		movestuff();
 		updateservervalues();
 		repaint();
@@ -434,52 +389,28 @@ public class Panel extends JPanel implements ActionListener {
 
 	private void updateservervalues() {
 		// TODO Auto-generated method stub
-<<<<<<< Updated upstream
 		if (pnum == 1) {
-			if (socketServer.getmini().getvalue(5) == "n") {
+			if (socketp1client.getvalue(5) == "n") {
 				p2Left = false;
 			} else {
 				p2Left = true;
-=======
-		if(pnum==1){
-			if(socketServer.getmini()==null){
-				System.out.println("the mini sever is null");
 			}
-			if(socketServer.getmini().getvalue(5)=="n"){
-				p2Left=false;
-			}
-			else{
-				p2Left=true;
-			}
-			if(socketServer.getmini().getvalue(6)=="n"){
-				p2Right=false;
-			}
-			else{
-				p2Right=true;
-			}
-			if(socketServer.getmini().getvalue(7)=="n"){
-				p2Up=false;
-			}
-			else{
-				p2Up=true;
->>>>>>> Stashed changes
-			}
-			if (socketServer.getmini().getvalue(6) == "n") {
+			if (socketp1client.getvalue(6) == "n") {
 				p2Right = false;
 			} else {
 				p2Right = true;
 			}
-			if (socketServer.getmini().getvalue(7) == "n") {
+			if (socketp1client.getvalue(7) == "n") {
 				p2Up = false;
 			} else {
 				p2Up = true;
 			}
-			if (socketServer.getmini().getvalue(8) == "n") {
+			if (socketp1client.getvalue(8) == "n") {
 				p2Down = false;
 			} else {
 				p2Down = true;
 			}
-			if (socketServer.getmini().getvalue(9) == "y") {
+			if (socketp1client.getvalue(9) == "y") {
 				p2Shooting = 1;
 			} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 				//p2Shooting=;
@@ -885,13 +816,8 @@ public class Panel extends JPanel implements ActionListener {
 	public void setP2Shooting(int p1Shooting) {
 		this.p2Shooting = p1Shooting;
 	}
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 	public void toggleForeverbullet() {
-<<<<<<< Updated upstream
 		if (!gameTimer.isRunning()) {
 			if (foreverbullet) {
 				foreverbullet = false;
@@ -905,17 +831,6 @@ public class Panel extends JPanel implements ActionListener {
 		if (!gameTimer.isRunning()) {
 			this.scrollSpeed = scrollSpeed;
 		}
-=======
-	//	if (foreverbullet) {
-		//	foreverbullet = false;
-		//} else {
-		//	foreverbullet = true;
-		//}
-	}
-
-	public void setScrollSpeed(int scrollSpeed) {
-	//	this.scrollSpeed = scrollSpeed;
->>>>>>> Stashed changes
 	}
 
 	public void changeMap() {
@@ -941,8 +856,4 @@ public class Panel extends JPanel implements ActionListener {
 			}
 		}
 	}
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 }

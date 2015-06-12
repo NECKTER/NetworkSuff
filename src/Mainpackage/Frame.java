@@ -23,7 +23,7 @@ public class Frame extends JFrame implements ActionListener {
 		createMenus();
 		setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel = new Panel(2);
+		panel = new Panel(1);
 		this.add(panel);
 		pack();
 		this.setVisible(true);
@@ -42,11 +42,11 @@ public class Frame extends JFrame implements ActionListener {
 		JMenuItem toggleForeverbullet = new JMenuItem("ForeverBullet");
 		toggleForeverbullet.addActionListener(this);
 		fileMenu.add(toggleForeverbullet);
-		
+
 		JMenuItem map = new JMenuItem("Change Map");
 		map.addActionListener(this);
 		fileMenu.add(map);
-		
+
 		JMenuItem help = new JMenuItem("Help!");
 		help.addActionListener(this);
 		fileMenu.add(help);
@@ -79,22 +79,22 @@ public class Frame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand() == "Start") panel.startGame();
-		if (e.getActionCommand() == "ForeverBullet"){
+		if (e.getActionCommand() == "ForeverBullet") {
 			panel.toggleForeverbullet();
 		}
-		if (e.getActionCommand() == "Normal"){
+		if (e.getActionCommand() == "Normal") {
 			panel.setScrollSpeed(333);
 		}
-		if (e.getActionCommand() == "Fast"){
+		if (e.getActionCommand() == "Fast") {
 			panel.setScrollSpeed(10);
 		}
-		if (e.getActionCommand() == "None"){
+		if (e.getActionCommand() == "None") {
 			panel.setScrollSpeed(Integer.MAX_VALUE);
 		}
-		if (e.getActionCommand() == "Change Map"){
+		if (e.getActionCommand() == "Change Map") {
 			panel.changeMap();
 		}
-		if(e.getActionCommand() == "Help!"){
+		if (e.getActionCommand() == "Help!") {
 			JOptionPane.showMessageDialog(null, "Move wiht the arrow keys\nSettings and map can only be changed between gamse\n");
 		}
 	}

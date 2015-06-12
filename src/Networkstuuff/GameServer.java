@@ -16,7 +16,7 @@ static MiniServer mini;
 private static ServerSocket sr;
 private static ServerSocket srvr;
 	public GameServer() {
-		// TODO Auto-generated constructor stub
+		
 		
 	}
 
