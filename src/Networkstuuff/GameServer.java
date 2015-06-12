@@ -28,17 +28,7 @@ public class GameServer extends Thread {
 	
 	private BufferedReader in;
 	public GameServer() {
-				try {
-					
-			swag = new ServerSocket(1340);
-			System.out.println("Oh hi Jessy");
-			this.skl = swag.accept();
-			System.out.println("Oh hi Jswag");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-		}
+				System.out.println("Oh hi Jswag");
 		
 	
 		// for(int i=0;i<10;)
@@ -59,13 +49,16 @@ public class GameServer extends Thread {
 		//Read input and process here
 		int howmany=0;
 		
-			Socket skm;
+			
 			try {
 				outData="";
 				data="";
+				swag = new ServerSocket(1340);
+				System.out.println("Oh hi Jessy");
+				this.skl = swag.accept();
+				skm = new Socket("10.0.1.39", 1233);
 				
 				
-					skm = new Socket("10.0.1.39", 1233);
 				
 			
 					

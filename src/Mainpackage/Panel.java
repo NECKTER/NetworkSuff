@@ -77,8 +77,11 @@ public class Panel extends JPanel implements ActionListener {
 			socketServer.start();
 			
 		} else {
+			
 			socketClient = new GameClient();
+			System.out.println("Putin is Garbage");
 			socketClient.start();
+			System.out.println("Putin isnt Garbage");
 		}
 		sound.mapFile("shoot", "SHOOT.wav");
 		//block break and step sound
