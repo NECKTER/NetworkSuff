@@ -63,7 +63,7 @@ public class Panel extends JPanel implements ActionListener {
 	private long lastScroll = System.currentTimeMillis();
 	private GameClient socketClient = null;
 	private GameServer socketServer = null;
-	private GameClient socketp1client = null;
+	
 
 	public Panel(int i) {
 		pnum = i;
@@ -73,7 +73,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (pnum == 1) {
 			System.out.println("pie");
 			socketServer = new GameServer();
-			System.out.println("pie");
+			
 			socketServer.start();
 
 		} else {
@@ -125,12 +125,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(true);
-					if (socketServer.getvalue(2) == "n") {
+					if (socketServer.getvalue(2).trim().equals("n")) {
 						socketServer.togglevalue(2);
 					}
 				} else {
 					setP2Up(true);
-					if (socketClient.getvalue(7) == "n") {
+					if (socketClient.getvalue(7).trim().equals("n")) {
 						socketClient.togglevalue(7);
 					}
 
@@ -147,12 +147,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Up(false);
-					if (socketServer.getvalue(2) == "y") {
+					if (socketServer.getvalue(2).trim().equals("y")) {
 						socketServer.togglevalue(2);
 					}
 				} else {
 					setP2Up(false);
-					if (socketClient.getvalue(7) == "y") {
+					if (socketClient.getvalue(7).trim().equals("y")) {
 						socketClient.togglevalue(7);
 					}
 				}
@@ -168,12 +168,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(true);
-					if (socketServer.getvalue(3) == "n") {
+					if (socketServer.getvalue(3).trim().equals("n")) {
 						socketServer.togglevalue(3);
 					}
 				} else {
 					setP2Down(true);
-					if (socketClient.getvalue(8) == "n") {
+					if (socketClient.getvalue(8).trim().equals("n")) {
 						socketClient.togglevalue(8);
 					}
 				}
@@ -189,12 +189,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Down(false);
-					if (socketServer.getvalue(3) == "y") {
+					if (socketServer.getvalue(3).trim().equals("y")) {
 						socketServer.togglevalue(3);
 					}
 				} else {
 					setP2Down(false);
-					if (socketClient.getvalue(8) == "y") {
+					if (socketClient.getvalue(8).trim().equals("y")) {
 						socketClient.togglevalue(8);
 					}
 				}
@@ -210,12 +210,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(true);
-					if (socketServer.getvalue(1) == "n") {
+					if (socketServer.getvalue(1).trim().equals("n")){
 						socketServer.togglevalue(1);
 					}
 				} else {
 					setP2Right(true);
-					if (socketClient.getvalue(6) == "n") {
+					if (socketClient.getvalue(6).trim().equals("n")) {
 						socketClient.togglevalue(6);
 					}
 				}
@@ -231,12 +231,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(false);
-					if (socketServer.getvalue(1) == "y") {
+					if (socketServer.getvalue(1).trim().equals("y")) {
 						socketServer.togglevalue(1);
 					}
 				} else {
 					setP2Right(false);
-					if (socketClient.getvalue(6) == "y") {
+					if (socketClient.getvalue(6).trim().equals("y")) {
 						socketClient.togglevalue(6);
 					}
 				}
@@ -252,12 +252,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(true);
-					if (socketServer.getvalue(0) == "n") {
+					if (socketServer.getvalue(0).trim().equals("n")) {
 						socketServer.togglevalue(0);
 					}
 				} else {
 					setP2Left(true);
-					if (socketClient.getvalue(5) == "n") {
+					if (socketClient.getvalue(5).trim().equals("n")) {
 						socketClient.togglevalue(5);
 					}
 				}
@@ -273,12 +273,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Left(false);
-					if (socketServer.getvalue(0) == "n") {
+					if (socketServer.getvalue(0).trim().equals("y")) {
 						socketServer.togglevalue(0);
 					}
 				} else {
 					setP2Left(false);
-					if (socketClient.getvalue(5) == "y") {
+					if (socketClient.getvalue(5).trim().equals("y")) {
 						socketClient.togglevalue(5);
 					}
 				}
@@ -294,12 +294,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(1);
-					if (socketServer.getvalue(4) == "n") {
+					if (socketServer.getvalue(4).trim().equals("n")) {
 						socketServer.togglevalue(4);
 					}
 				} else {
 					setP2Shooting(1);
-					if (socketClient.getvalue(9) == "n") {
+					if (socketClient.getvalue(9).trim().equals("n")) {
 						socketClient.togglevalue(9);
 					}
 				}
@@ -315,12 +315,12 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(-1);
-					if (socketServer.getvalue(4) == "n") {
+					if (socketServer.getvalue(4).trim().equals("y")) {
 						socketServer.togglevalue(4);
 					}
 				} else {
 					setP2Shooting(-1);
-					if (socketClient.getvalue(9) == "y") {
+					if (socketClient.getvalue(9).trim().equals("y")) {
 						socketClient.togglevalue(9);
 					}
 				}
@@ -405,54 +405,54 @@ public class Panel extends JPanel implements ActionListener {
 	private void updateservervalues() {
 		// TODO Auto-generated method stub
 		if (pnum == 1) {
-			if (socketServer.getvalue(5) == "n") {
+			if (socketServer.getvalue(5).trim().equals("n")) {
 				p2Left = false;
 			} else {
 				p2Left = true;
 			}
-			if (socketServer.getvalue(6) == "n") {
+			if (socketServer.getvalue(6).trim().equals("n")) {
 				p2Right = false;
 			} else {
 				p2Right = true;
 			}
-			if (socketServer.getvalue(7) == "n") {
+			if (socketServer.getvalue(7).trim().equals("n")){
 				p2Up = false;
 			} else {
 				p2Up = true;
 			}
-			if (socketServer.getvalue(8) == "n") {
+			if (socketServer.getvalue(8).trim().equals("n")) {
 				p2Down = false;
 			} else {
 				p2Down = true;
 			}
-			if (socketServer.getvalue(9) == "y") {
+			if (socketServer.getvalue(9).trim().equals("y")) {
 				p2Shooting = 1;
 			} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 				//p2Shooting=;
 			}
 		} else
 			if (pnum == 2) {
-				if (socketClient.getvalue(0) == "n") {
+				if (socketClient.getvalue(0).trim().equals("n")) {
 					p1Left = false;
 				} else {
 					p1Left = true;
 				}
-				if (socketClient.getvalue(1) == "n") {
+				if (socketClient.getvalue(1).trim().equals("n")) {
 					p1Right = false;
 				} else {
 					p1Right = true;
 				}
-				if (socketClient.getvalue(2) == "n") {
+				if (socketClient.getvalue(2).trim().equals("n")) {
 					p1Up = false;
 				} else {
 					p1Up = true;
 				}
-				if (socketClient.getvalue(3) == "n") {
+				if (socketClient.getvalue(3).trim().equals("n")) {
 					p1Down = false;
 				} else {
 					p1Down = true;
 				}
-				if (socketClient.getvalue(4) == "y") {
+				if (socketClient.getvalue(4).trim().equals("y")){
 					p1Shooting = 1;
 				} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 					//p2Shooting=;

@@ -22,18 +22,17 @@ public class GameClient extends Thread {
 	private Socket skt;
 	private Socket skj;
 	private int m = 0;
+	String info = "nnnnnnnnnn";
 
-	static String info = "nnnnnnnnnn";
+	
 
-	public static String[] clientsvalues = new String[10];
-	Panel l;
 	private static int playernumber = 2;
 	private static ServerSocket srv = null;
 
 	private static Socket skm;
 
 	public void togglevalue(int where) {
-		if (info.substring(where, where + 1) == "y") {
+		if (info.substring(where, where + 1).equals("y")) {
 			info = info.substring(0, where) + "n" + info.substring(where + 1);
 		} else {
 			info = info.substring(0, where) + "y" + info.substring(where + 1);
@@ -41,11 +40,22 @@ public class GameClient extends Thread {
 	}
 
 	public String getvalue(int l) {
-		return clientsvalues[l];
+		return (info.substring(l, l+ 1));
 	}
 
 	public GameClient() {
-
+		try {
+			
+			srv = new ServerSocket(1233);
+			
+			System.out.println("MAKES NEW SERVER socket");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//playernumber=j;
 
 	}
@@ -53,26 +63,26 @@ public class GameClient extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+	
+			
 		while (true) {
 			infoOut = "";
+			System.out.println("Starts inside while");
 			try {
 
-				srv = new ServerSocket(1233);
-
-				skj = srv.accept();
-				skt = new Socket("localhost", 1240);
-
 				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
-
-				// skm = new Socket("10.0.1.39", 1236);
-
-				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
-				PrintWriter pw = new PrintWriter(skt.getOutputStream(), true);//, true);
+				 skm = new Socket("10.140.112.99", 1236);
+			
+				System.out.println("it accepted");
+				
+				
+				
+				System.out.println("it accepted");
+				PrintWriter pw = new PrintWriter(skm.getOutputStream(), true);//, true);
 
 				if (m < 1) {
 
 					pw.println(info);
-
 					System.out.println(info);
 					m++;
 				} else {
@@ -81,7 +91,8 @@ public class GameClient extends Thread {
 				}
 
 				pw.flush();
-
+				skj=srv.accept();				
+				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
 				System.out.print("Message sent");
 
 				while ((inputString = in.readLine()) != null) {
@@ -96,8 +107,8 @@ public class GameClient extends Thread {
 					System.out.println("data is NULL");
 				}
 
-				info = info.substring(0, 5) + data.substring(5, 10);
-
+				info = data.substring(0, 5)+info.substring(5, 10);
+       
 				System.out.println("Unpackaged");
 
 				//  System.out.println(info);
@@ -105,8 +116,8 @@ public class GameClient extends Thread {
 
 				in.close();
 				pw.close();
-				srv.close();
-				skt.close();
+				//skm.close();
+				//skt.close();
 
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
