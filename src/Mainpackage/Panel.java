@@ -293,14 +293,10 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(1);
-					if (socketServer.getvalue(4).trim().equals("n")) {
-						socketServer.togglevalue(4);
-					}
+					socketServer.setvalue(4, 'y');
 				} else {
 					setP2Shooting(1);
-					if (socketClient.getvalue(9).trim().equals("n")) {
-						socketClient.togglevalue(9);
-					}
+					socketClient.setvalue(9, 'y');
 				}
 			}
 		});
@@ -314,14 +310,10 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Shooting(-1);
-					if (socketServer.getvalue(4).trim().equals("y")) {
-						socketServer.togglevalue(4);
-					}
+					socketServer.setvalue(4, 'n');
 				} else {
 					setP2Shooting(-1);
-					if (socketClient.getvalue(9).trim().equals("y")) {
-						socketClient.togglevalue(9);
-					}
+					socketServer.setvalue(9, 'n');
 				}
 			}
 		});
@@ -778,6 +770,9 @@ public class Panel extends JPanel implements ActionListener {
 
 				sound.play("shoot");
 			}
+			if (pnum == 2) {
+				socketClient.setvalue(9, 'm');
+			}
 			p2Shooting = 0;
 		}
 		if (p1Shooting == -1) {
@@ -801,6 +796,9 @@ public class Panel extends JPanel implements ActionListener {
 
 				sound.play("shoot");
 			}
+		}
+		if (pnum == 1) {
+			socketServer.setvalue(4, 'm');
 		}
 		p1Shooting = 0;
 	}
