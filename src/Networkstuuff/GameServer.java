@@ -28,7 +28,7 @@ public class GameServer extends Thread {
 	private BufferedReader in;
 	public GameServer() {
 
-		super("MiniServer");
+		
 		ServerSocket swag;
 		try {
 			swag = new ServerSocket(1340);
@@ -74,7 +74,7 @@ public class GameServer extends Thread {
 				//  SocketAddress up=	srvr.getLocalSocketAddress();
 				//System.out.println(up);
 				//System.out.println("It connected");
-             for(int b=0;b<2;b++){
+             
             	
 				BufferedReader in = new BufferedReader(
 						new InputStreamReader (skl.getInputStream()));
@@ -112,7 +112,8 @@ public class GameServer extends Thread {
 				skm.close();
 				//srvr.close();
 			}
-			}
+	
+			
 			catch(IOException r){
 
 			}

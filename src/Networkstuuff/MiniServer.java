@@ -57,7 +57,6 @@ public class MiniServer extends Thread{
 					skm = new Socket("10.0.1.39", 1239);
 				
 			
-					skq = new Socket("10.0.1.39", 1257);
 				
 				// TODO Auto-generated catch block
 				
