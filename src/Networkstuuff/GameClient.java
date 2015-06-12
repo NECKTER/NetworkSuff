@@ -59,8 +59,7 @@ public class GameClient extends Thread {
 				if (playernumber == 1) {
 					srv = new ServerSocket(1239);
 				} else {
-					//srv = new ServerSocket(1257);
-					srv = new ServerSocket(1239);
+					srv = new ServerSocket(1257);
 				}
 				skt = new Socket("10.0.1.39", 1240);
 				// skm = new Socket("10.0.1.39", 1236);
