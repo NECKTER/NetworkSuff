@@ -20,7 +20,7 @@ public class GameServer extends Thread {
 	Boolean hj;
 	Socket skm;
 	ServerSocket srvr = null;
-	String originaldata = "nnnnnnnnyn";
+	String originaldata = "nnnnnnnnnn";
 	String outData = "";
 	String inputString = null;
 	ServerSocket swag;
@@ -52,19 +52,20 @@ public class GameServer extends Thread {
 
 		int howmany=0;
 		
-			
+			System.out.println("its trying");
 			try {
+				System.out.println("its trying inside loop");
 				outData="";
 				data="";
 				swag = new ServerSocket(1340);
 				System.out.println("Oh hi Jessy");
 				this.skl = swag.accept();
-				skm = new Socket("10.0.1.39", 1233);
+				skm = new Socket("localhost", 1233);
 				
 				
 				
 			
-					
+				
 				
 				// TODO Auto-generated catch block
 				
@@ -111,7 +112,7 @@ public class GameServer extends Thread {
 		}
 
 		catch (IOException r) {
-
+System.out.println("it broke");
 		}
 		//implement your methods here
 	}

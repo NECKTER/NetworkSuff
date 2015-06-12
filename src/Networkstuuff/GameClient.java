@@ -23,7 +23,7 @@ public class GameClient extends Thread {
 	private Socket skj;
 	private int m = 0;
 
-	static String info = "nynnynnynn";
+	static String info = "nnnnnnnnnn";
 
 	public static String[] clientsvalues = new String[10];
 	Panel l;
@@ -59,10 +59,10 @@ public class GameClient extends Thread {
 			infoOut = "";
 			try {
 
-				
+				skt = new Socket("localhost", 1240);
 				srv = new ServerSocket(1233);
 				skj = srv.accept();
-				skt = new Socket("10.0.1.39", 1240);
+				
 				
 
 
