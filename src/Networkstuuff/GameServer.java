@@ -30,26 +30,9 @@ public class GameServer extends Thread {
 	private BufferedReader in;
 
 	public GameServer() {
-<<<<<<< HEAD
-				System.out.println("Oh hi Jswag");
-		
-	
-=======
-		try {
 
-			swag = new ServerSocket(1340);
-			System.out.println("Oh hi Jessy");
-			this.skl = swag.accept();
-			System.out.println("Oh hi Jswag");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 
-			e.printStackTrace();
-		}
-
->>>>>>> origin/master
 		// for(int i=0;i<10;)
-
 	}
 
 	public void togglevalue(int where) {
@@ -66,7 +49,7 @@ public class GameServer extends Thread {
 
 	public void run() {
 		//Read input and process here
-<<<<<<< HEAD
+
 		int howmany=0;
 		
 			
@@ -105,35 +88,7 @@ public class GameServer extends Thread {
 					if(inputString!=null){
 						break;
 					}
-=======
-		int howmany = 0;
 
-		Socket skm;
-		try {
-			outData = "";
-			data = "";
-
-			skm = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1233);
-
-			// TODO Auto-generated catch block
-
-			//  SocketAddress up=	srvr.getLocalSocketAddress();
-			//System.out.println(up);
-			//System.out.println("It connected");
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(skl.getInputStream()));
-
-			PrintWriter out = new PrintWriter(skm.getOutputStream(), true);
-
-			int count = 0;
-			while ((inputString = in.readLine()) != null) {
-				System.out.println("LOOP");
-				System.out.println(inputString);
-				data += inputString;
-				if (inputString != null) {
-					break;
->>>>>>> origin/master
-				}
 			}
 			System.out.println("It recieved data");
 			System.out.println(data);
@@ -161,3 +116,4 @@ public class GameServer extends Thread {
 		//implement your methods here
 	}
 }
+	

@@ -45,18 +45,9 @@ public class GameClient extends Thread {
 	}
 
 	public GameClient() {
-<<<<<<< HEAD
-		
-=======
-		try {
-			srv = new ServerSocket(1233);
-			skj = srv.accept();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
->>>>>>> origin/master
+	
+
 		//playernumber=j;
 
 	}
@@ -67,16 +58,16 @@ public class GameClient extends Thread {
 		while (true) {
 			infoOut = "";
 			try {
-<<<<<<< HEAD
+
 				
 				srv = new ServerSocket(1233);
 				skj = srv.accept();
 				skt = new Socket("10.0.1.39", 1240);
 				
-=======
 
-				skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
->>>>>>> origin/master
+
+			//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
+
 				// skm = new Socket("10.0.1.39", 1236);
 
 				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
