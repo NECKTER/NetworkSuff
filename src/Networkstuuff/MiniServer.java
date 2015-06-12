@@ -18,10 +18,13 @@ public class MiniServer extends Thread{
 	String inputString=null;
 	GameClient[] clients =new GameClient[2];
 	private Socket skq;
+	
+	private BufferedReader in;
 	public MiniServer(Socket socket) {
 
 		super("MiniServer");
 		this.skl = socket;
+	
 		// for(int i=0;i<10;)
 		for(int i=0;i<10;i++){
 			states[i]="n";
@@ -62,13 +65,16 @@ public class MiniServer extends Thread{
 				//  SocketAddress up=	srvr.getLocalSocketAddress();
 				//System.out.println(up);
 				//System.out.println("It connected");
-             for(int b=0;b<1;b++){
+             for(int b=0;b<2;b++){
+            	
 				BufferedReader in = new BufferedReader(
 						new InputStreamReader (skl.getInputStream()));
+            	 
+            	
 				PrintWriter out = new PrintWriter(skm.getOutputStream(),true);	
 				PrintWriter out2 = new PrintWriter(skq.getOutputStream(),true);
 				int count = 0;
-				while ((inputString = in.readLine())!=null) {
+				while ((inputString = in.readLine())!=null) {	
 					System.out.println("LOOP"); 
 					System.out.println(inputString);
 					data+=inputString;

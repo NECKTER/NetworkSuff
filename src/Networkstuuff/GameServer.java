@@ -15,13 +15,8 @@ public class GameServer {
 static MiniServer mini;
 private static ServerSocket sr;
 private static ServerSocket srvr;
+private static MiniServer mini2;
 	public GameServer() {
-		
-		
-	}
-
-	public static void main(String[] args){
-		
 		ServerSocket srvr=null;
 		boolean iscon=false;
 		ServerSocket srt=null;
@@ -31,7 +26,7 @@ private static ServerSocket srvr;
 			
 			 srvr=new ServerSocket(1240);
 			
-			// srt=new ServerSocket(1236);
+			//srt=new ServerSocket(1236);
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -44,23 +39,29 @@ private static ServerSocket srvr;
 			try {
 				skl = srvr.accept();
 				
-				//skn=srt.accept();
+				
 				iscon=true;
-				//skn =srt.accept();
+				skn =srt.accept();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			 mini = new MiniServer(skl);
-			
+			//mini2=new MiniServer(skn);
+		//	mini2.start();
 	//	MiniServer mini2=new MiniServer(skn);
             mini.start();
         //   mini2.start();
 	}
 		
 	}
-	public MiniServer getmini(){
-		return mini;
-	}
+	
+		
+	
+
+	public static void main(String[] args){
+		
+		
 }
+	}
