@@ -83,6 +83,7 @@ public class Panel extends JPanel implements ActionListener {
 <<<<<<< Updated upstream
 		pnum = i;
 		loadmap = new LoadMap("wall.png");
+<<<<<<< HEAD
 =======
 
 		pnum = i;
@@ -90,6 +91,8 @@ public class Panel extends JPanel implements ActionListener {
 
 >>>>>>> Stashed changes
 		map = loadmap.getMap();
+=======
+>>>>>>> origin/master
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
 		player.addShoot(sheet.getPlayerShoot());
@@ -333,6 +336,7 @@ public class Panel extends JPanel implements ActionListener {
 			first = false;
 		}
 		socketClient = new GameClient();
+<<<<<<< HEAD
 =======
 
 		
@@ -347,6 +351,13 @@ public class Panel extends JPanel implements ActionListener {
 		}
 
 >>>>>>> Stashed changes
+=======
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				map[i][j] = loadmap.getMap()[i][j];
+			}
+		}
+>>>>>>> origin/master
 		p1Health = 10;
 		p2Health = 10;
 		player.move(200, 400);
@@ -356,7 +367,6 @@ public class Panel extends JPanel implements ActionListener {
 
 >>>>>>> Stashed changes
 		gameTimer.start();
-		map = loadmap.getMap();
 
 		//makes the game client
 
@@ -365,18 +375,26 @@ public class Panel extends JPanel implements ActionListener {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		g.setFont(new Font("Times new roman", Font.PLAIN, 100));
 		//paint what is to be seen then the game has not yet started or has ended
 		g.drawImage(sheet.getBackround(), 0, 0, 1600, 900, null);
+		g.drawString("" + (10 - p2Health), 200, 75);
+		g.drawString("" + (10 - p1Health), 1300, 75);
 		if (!gameTimer.isRunning()) {
-			g.setFont(new Font("Times new roman", Font.PLAIN, 100));
 			if (p1Health == 0) {
+				player.drawDeath(g, p1col);
+				player2.flipAll();
 				player2.draw(g, p2col, false);
+				player2.flipAll();
 				g.setColor(p2col);
 				g.drawString("Winner", 650, 200);
 			}
 			if (p2Health == 0) {
-				g.setColor(p1col);
 				player.draw(g, p1col, false);
+				player2.flipAll();
+				player2.drawDeath(g, p2col);
+				player2.flipAll();
+				g.setColor(p1col);
 				g.drawString("Winner", 650, 200);
 			}
 			return;
@@ -685,17 +703,12 @@ public class Panel extends JPanel implements ActionListener {
 		//if players hit 
 		for (Objects objects : bullets) {
 			objects.move();
-			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false || foreverbullet) {
-					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
-					else {
-						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
-						else
-							garbage.add(objects);
-					}
-				}
-//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
+			if (objects.getY() > this.getHeight() || objects.getY() < 0) {
+				if (objects.Hasbounced() == false || foreverbullet) objects.bounce();
 			}
+			if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+			else
+				if (objects.getX() > this.getWidth() || objects.getX() < 0) garbage.add(objects);
 			if (player2.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
@@ -708,17 +721,12 @@ public class Panel extends JPanel implements ActionListener {
 
 		for (Objects objects : enemybullets) {
 			objects.move();
-			if (objects.getX() > this.getWidth() || objects.getX() < 0 || objects.getY() > this.getHeight() || objects.getY() < 0) {
-				if (objects.Hasbounced() == false || foreverbullet) {
-					if (objects.getY() > this.getHeight() || objects.getY() < 0) objects.bounce();
-					else {
-						if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
-						else
-							garbage.add(objects);
-					}
-				}
-//				if (objects.Hasbounced() && !foreverbullet) garbage.add(objects);
+			if (objects.getY() > this.getHeight() || objects.getY() < 0) {
+				if (objects.Hasbounced() == false || foreverbullet) objects.bounce();
 			}
+			if ((objects.getX() > this.getWidth() || objects.getX() < 0) && foreverbullet) objects.changeDirection();
+			else
+				if (objects.getX() > this.getWidth() || objects.getX() < 0) garbage.add(objects);
 			if (player.getPixels().contains(new Point(objects.getX(), objects.getY()))) {
 				garbage.add(objects);
 				sound.play("death");
