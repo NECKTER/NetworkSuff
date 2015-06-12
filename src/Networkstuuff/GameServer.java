@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import Mainpackage.Panel;
@@ -47,30 +48,50 @@ public class GameServer extends Thread {
 	}
 
 	public void run() {
-		//Read input and process here
+		//Read input and process hereswag = new ServerSocket(1340);
+		System.out.println("Oh hi Jessy");
+		if (!accept.isAlive()) {
+			accept.update(swag, skl);
+			accept.start();
+			this.skl = accept.getSock();
+		}
+		try {
+			skm = new Socket(InetAddress.getLocalHost(), 2222);
+		} catch (UnknownHostException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
+		// TODO Auto-generated catch block
+
+		//  SocketAddress up=	srvr.getLocalSocketAddress();
+		//System.out.println(up);
+		//System.out.println("It connected");
+
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new InputStreamReader(skl.getInputStream()));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter(skm.getOutputStream(), true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while (true) {
 			int howmany = 0;
 
-			System.out.println("its trying");
 			try {
-				System.out.println("its trying inside loop");
 				outData = "";
 				data = "";
-				swag = new ServerSocket(1340);
-				System.out.println("Oh hi Jessy");
-				accept.update(swag, skl);
-				this.skl = accept.getSock();
-				skm = new Socket("10.0.1.39", 1233);
-
-				// TODO Auto-generated catch block
-
-				//  SocketAddress up=	srvr.getLocalSocketAddress();
-				//System.out.println(up);
-				//System.out.println("It connected");
-
-				BufferedReader in = new BufferedReader(new InputStreamReader(skl.getInputStream()));
-
-				PrintWriter out = new PrintWriter(skm.getOutputStream(), true);
 
 				int count = 0;
 				while ((inputString = in.readLine()) != null) {
@@ -103,7 +124,7 @@ public class GameServer extends Thread {
 			}
 
 			catch (IOException r) {
-				System.out.println("it broke");
+
 			}
 			//implement your methods here
 		}
