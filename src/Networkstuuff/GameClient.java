@@ -71,7 +71,7 @@ public class GameClient extends Thread {
 			try {
 
 				//	skt = new Socket(InetAddress.getByName("2620:9b::1915:3aa7"), 1240);
-				 skm = new Socket("10.140.112.99", 1236);
+				 skm = new Socket("10.140.106.107", 1236);
 			
 				System.out.println("it accepted");
 				

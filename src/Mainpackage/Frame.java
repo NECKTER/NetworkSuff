@@ -23,7 +23,7 @@ public class Frame extends JFrame implements ActionListener {
 		createMenus();
 		setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel = new Panel(1); 
+		panel = new Panel(2); 
 		this.add(panel);
 		pack();
 		this.setVisible(true);

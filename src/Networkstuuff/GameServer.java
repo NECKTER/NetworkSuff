@@ -74,7 +74,7 @@ while(true){
 				outData="";
 				data="";		
 				skl = swag.accept();
-				skm = new Socket("10.140.112.99", 1233);
+				skm = new Socket("", 1233);
 				
 				// TODO Auto-generated catch block
 				
