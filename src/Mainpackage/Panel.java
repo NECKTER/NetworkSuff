@@ -63,7 +63,6 @@ public class Panel extends JPanel implements ActionListener {
 	private long lastScroll = System.currentTimeMillis();
 	private GameClient socketClient = null;
 	private GameServer socketServer = null;
-	
 
 	public Panel(int i) {
 		pnum = i;
@@ -73,7 +72,7 @@ public class Panel extends JPanel implements ActionListener {
 		if (pnum == 1) {
 			System.out.println("pie");
 			socketServer = new GameServer();
-			
+
 			socketServer.start();
 
 		} else {
@@ -210,7 +209,7 @@ public class Panel extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (pnum == 1) {
 					setP1Right(true);
-					if (socketServer.getvalue(1).trim().equals("n")){
+					if (socketServer.getvalue(1).trim().equals("n")) {
 						socketServer.togglevalue(1);
 					}
 				} else {
@@ -415,7 +414,7 @@ public class Panel extends JPanel implements ActionListener {
 			} else {
 				p2Right = true;
 			}
-			if (socketServer.getvalue(7).trim().equals("n")){
+			if (socketServer.getvalue(7).trim().equals("n")) {
 				p2Up = false;
 			} else {
 				p2Up = true;
@@ -429,6 +428,7 @@ public class Panel extends JPanel implements ActionListener {
 				p2Shooting = 1;
 			} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 				//p2Shooting=;
+				p2Shooting = -1;
 			}
 		} else
 			if (pnum == 2) {
@@ -452,10 +452,11 @@ public class Panel extends JPanel implements ActionListener {
 				} else {
 					p1Down = true;
 				}
-				if (socketClient.getvalue(4).trim().equals("y")){
+				if (socketClient.getvalue(4).trim().equals("y")) {
 					p1Shooting = 1;
 				} else { //I DONT KNOW HOW YOUR BULLETS WORK, YOU DO THIS SHIT
 					//p2Shooting=;
+					p1Shooting = -1;
 				}
 			}
 
