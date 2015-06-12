@@ -71,10 +71,13 @@ public class Panel extends JPanel implements ActionListener {
 		this.setBackground(Color.WHITE);
 		Objects.panel = this;
 		if (pnum == 1) {
+			System.out.println("pie");
 			socketServer = new GameServer();
+			System.out.println("pie");
 			socketServer.start();
+			
 		} else {
-			socketClient = new GameClient(2);
+			socketClient = new GameClient();
 			socketClient.start();
 		}
 		sound.mapFile("shoot", "SHOOT.wav");

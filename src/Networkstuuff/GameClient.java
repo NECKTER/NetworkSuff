@@ -45,7 +45,15 @@ public class GameClient extends Thread {
 		return clientsvalues[l];
 	}
 
-	public GameClient(int j) {
+	public GameClient() {
+		try {
+			srv = new ServerSocket(1233);
+			skj = srv.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//playernumber=j;
 
 	}
@@ -57,11 +65,10 @@ public class GameClient extends Thread {
 			infoOut = "";
 			try {
 				
-					srv = new ServerSocket(1239);
-				
+					
 				skt = new Socket("10.0.1.39", 1240);
 				// skm = new Socket("10.0.1.39", 1236);
-				skj = srv.accept();
+				
 				BufferedReader in = new BufferedReader(new InputStreamReader(skj.getInputStream()));
 				PrintWriter pw = new PrintWriter(skt.getOutputStream(), true);//, true);
 

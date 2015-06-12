@@ -22,19 +22,21 @@ public class GameServer extends Thread {
 	String originaldata="nnnnnnnnyn";
 	String outData="";
 	String inputString=null;
-	GameClient[] clients =new GameClient[2];
+	ServerSocket swag;
+
 	private Socket skq;
 	
 	private BufferedReader in;
 	public GameServer() {
-
-		
-		ServerSocket swag;
-		try {
+				try {
+					
 			swag = new ServerSocket(1340);
+			System.out.println("Oh hi Jessy");
 			this.skl = swag.accept();
+			System.out.println("Oh hi Jswag");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -63,7 +65,7 @@ public class GameServer extends Thread {
 				data="";
 				
 				
-					skm = new Socket("10.0.1.39", 1239);
+					skm = new Socket("10.0.1.39", 1233);
 				
 			
 					
