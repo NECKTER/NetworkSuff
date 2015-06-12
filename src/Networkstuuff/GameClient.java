@@ -33,12 +33,12 @@ public class GameClient extends Thread {
 	private static Socket skm;
 
 	public void togglevalue(int where) {
-		if (clientsvalues[where] == "n") {
-			clientsvalues[where] = "y";
-		} else
-			if (clientsvalues[where] == "y") {
-				clientsvalues[where] = "n";
-			}
+		if(info.substring(where, where+1)=="y"){
+			info=info.substring(0, where)+"n"+info.substring(where+1);
+		}
+		else{
+			info=info.substring(0, where)+"y"+info.substring(where+1);
+		}
 	}
 
 	public String getvalue(int l) {
@@ -56,11 +56,9 @@ public class GameClient extends Thread {
 		while (true) {
 			infoOut = "";
 			try {
-				if (playernumber == 1) {
+				
 					srv = new ServerSocket(1239);
-				} else {
-					srv = new ServerSocket(1257);
-				}
+				
 				skt = new Socket("10.0.1.39", 1240);
 				// skm = new Socket("10.0.1.39", 1236);
 				skj = srv.accept();
@@ -68,19 +66,13 @@ public class GameClient extends Thread {
 				PrintWriter pw = new PrintWriter(skt.getOutputStream(), true);//, true);
 
 				if (m < 1) {
-					if (playernumber == 2) {
-						pw.println("o" + info);
-					} else {
-						pw.println("p" + info);
-					}
+					
+						pw.println( info);
+					
 					System.out.println(info);
 					m++;
 				} else {
-					if (playernumber == 2) {
-						pw.println("o" + data);
-					} else {
-						pw.println("p" + data);
-					}
+						pw.println(info);
 
 				}
 
@@ -100,18 +92,13 @@ public class GameClient extends Thread {
 					System.out.println("data is NULL");
 				}
 
-				if (playernumber == 1) {
+				
 					info = info.substring(0, 5) + data.substring(5, 10);
-				}
-
-				else
-					if (playernumber == 2) {
-
-						info = data.substring(0, 5) + info.substring(5, 10);
-					}
+				
+				
 				System.out.println("Unpackaged");
 
-				data = info;
+				
 				//  System.out.println(info);
 				System.out.println("Repackedged");
 
