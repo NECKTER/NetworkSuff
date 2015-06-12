@@ -72,9 +72,12 @@ public class Panel extends JPanel implements ActionListener {
 		Objects.panel = this;
 		if (pnum == 1) {
 			socketServer = new GameServer();
+			socketServer.start();
 			socketp1client = new GameClient(1);
+			socketp1client.start();
 		} else {
 			socketClient = new GameClient(2);
+			socketClient.start();
 		}
 		sound.mapFile("shoot", "SHOOT.wav");
 		//block break and step sound
