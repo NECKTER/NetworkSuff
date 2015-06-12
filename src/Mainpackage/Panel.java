@@ -59,11 +59,17 @@ public class Panel extends JPanel implements ActionListener {
 	private boolean p2WasHit = false;
 	private int ticks = 0;
 	private int ticks2 = 0;
+<<<<<<< Updated upstream
 	private GameClient socketClient;
 	private GameServer socketServer;
 	private boolean foreverbullet = false;
 	private int scrollSpeed = Integer.MAX_VALUE;
 	private long lastScroll = System.currentTimeMillis();
+=======
+	private GameClient socketClient=null;
+	private GameServer socketServer=null;
+	private GameClient socketp1client=null;
+>>>>>>> Stashed changes
 
 	public Panel(int i) {
 		this.setPreferredSize(new Dimension(1600, 900));
@@ -74,8 +80,15 @@ public class Panel extends JPanel implements ActionListener {
 		//block break and step sound
 		sound.mapFile("break", "OUTLAW.wav");
 		sound.mapFile("death", "DEATH.wav");
+<<<<<<< Updated upstream
 		pnum = i;
 		loadmap = new LoadMap("wall.png");
+=======
+
+		pnum = i;
+		loadmap = new LoadMap("wall.png");
+
+>>>>>>> Stashed changes
 		map = loadmap.getMap();
 		setUpBindings();
 		player.addImage(sheet.getPlayerStep());
@@ -310,6 +323,7 @@ public class Panel extends JPanel implements ActionListener {
 
 	public void startGame() {
 		// setup game then start timer
+<<<<<<< Updated upstream
 		if (first) {
 			if (pnum == 1) {
 				socketServer = new GameServer();
@@ -319,10 +333,28 @@ public class Panel extends JPanel implements ActionListener {
 			first = false;
 		}
 		socketClient = new GameClient();
+=======
+
+		
+		if(pnum==1){
+		socketServer=new GameServer();
+	 socketp1client = new GameClient(1);
+		
+		}
+		else{
+		socketClient = new GameClient(2);
+		
+		}
+
+>>>>>>> Stashed changes
 		p1Health = 10;
 		p2Health = 10;
 		player.move(200, 400);
 		player2.move(1300, 400);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		gameTimer.start();
 		map = loadmap.getMap();
 
@@ -362,8 +394,12 @@ public class Panel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// do stuff and then repaint
 		checkGameOver();
+<<<<<<< Updated upstream
 //		updateservervalues();
+=======
+>>>>>>> Stashed changes
 		movestuff();
+		updateservervalues();
 		repaint();
 	}
 
@@ -380,11 +416,35 @@ public class Panel extends JPanel implements ActionListener {
 
 	private void updateservervalues() {
 		// TODO Auto-generated method stub
+<<<<<<< Updated upstream
 		if (pnum == 1) {
 			if (socketServer.getmini().getvalue(5) == "n") {
 				p2Left = false;
 			} else {
 				p2Left = true;
+=======
+		if(pnum==1){
+			if(socketServer.getmini()==null){
+				System.out.println("the mini sever is null");
+			}
+			if(socketServer.getmini().getvalue(5)=="n"){
+				p2Left=false;
+			}
+			else{
+				p2Left=true;
+			}
+			if(socketServer.getmini().getvalue(6)=="n"){
+				p2Right=false;
+			}
+			else{
+				p2Right=true;
+			}
+			if(socketServer.getmini().getvalue(7)=="n"){
+				p2Up=false;
+			}
+			else{
+				p2Up=true;
+>>>>>>> Stashed changes
 			}
 			if (socketServer.getmini().getvalue(6) == "n") {
 				p2Right = false;
@@ -817,8 +877,13 @@ public class Panel extends JPanel implements ActionListener {
 	public void setP2Shooting(int p1Shooting) {
 		this.p2Shooting = p1Shooting;
 	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 	public void toggleForeverbullet() {
+<<<<<<< Updated upstream
 		if (!gameTimer.isRunning()) {
 			if (foreverbullet) {
 				foreverbullet = false;
@@ -832,6 +897,17 @@ public class Panel extends JPanel implements ActionListener {
 		if (!gameTimer.isRunning()) {
 			this.scrollSpeed = scrollSpeed;
 		}
+=======
+	//	if (foreverbullet) {
+		//	foreverbullet = false;
+		//} else {
+		//	foreverbullet = true;
+		//}
+	}
+
+	public void setScrollSpeed(int scrollSpeed) {
+	//	this.scrollSpeed = scrollSpeed;
+>>>>>>> Stashed changes
 	}
 
 	public void changeMap() {
@@ -857,4 +933,8 @@ public class Panel extends JPanel implements ActionListener {
 			}
 		}
 	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }

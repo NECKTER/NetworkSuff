@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 import Mainpackage.Panel;
 public class GameServer {
- MiniServer mini=null;
+static MiniServer mini;
+private static ServerSocket sr;
+private static ServerSocket srvr;
 	public GameServer() {
 		// TODO Auto-generated constructor stub
 		
@@ -21,13 +23,14 @@ public class GameServer {
 	public static void main(String[] args){
 		
 		ServerSocket srvr=null;
-		
-		
+		boolean iscon=false;
+		ServerSocket srt=null;
 		
 		try {
 			//skm = new Socket("localhost", 1239);
 			
-			 srvr=new ServerSocket(1234);
+			 srvr=new ServerSocket(1240);
+			
 			// srt=new ServerSocket(1236);
 		
 		} catch (IOException e) {
@@ -36,19 +39,24 @@ public class GameServer {
 		}
 		while(true){
 			Socket skl = null;
-		//	Socket skn=null;
+		     Socket skn=null;
 			
 			try {
 				skl = srvr.accept();
+				
+				//skn=srt.accept();
+				iscon=true;
 				//skn =srt.accept();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			MiniServer mini = new MiniServer(skl);
-		//	MiniServer mini2=new MiniServer(skn);
+			
+			 mini = new MiniServer(skl);
+			
+	//	MiniServer mini2=new MiniServer(skn);
             mini.start();
-           // mini2.start();
+        //   mini2.start();
 	}
 		
 	}
